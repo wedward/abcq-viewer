@@ -22,7 +22,7 @@ if __name__ == '__main__':
     app.setOrganizationName("QtProject")
     app.setApplicationName("File System Explorer")
     app.setApplicationVersion(qVersion())
-    app.setWindowIcon(QIcon(sys.path[0] + "/ABCQ/icons/app_icon.svg"))
+    app.setWindowIcon(QIcon(sys.path[0] + "/prototype/icons/app_icon.svg"))
 
     parser = QCommandLineParser()
     parser.setApplicationDescription("Qt Filesystemexplorer Example")
@@ -40,7 +40,7 @@ if __name__ == '__main__':
     # Include the path of this file to search for the 'qmldir' module
     engine.addImportPath(sys.path[0])
     # print(sys.path[0])
-    engine.loadFromModule("ABCQ", "Main")
+    engine.loadFromModule("prototype", "Main")
     
 
 
@@ -48,7 +48,7 @@ if __name__ == '__main__':
         sys.exit(-1)
 
     if (len(args) == 1):
-        fsm = engine.singletonInstance("ABCQ", "FileSystemModel")
+        fsm = engine.singletonInstance("prototype", "FileSystemModel")
         fsm.setInitialDirectory(args[0])
 
     exit_code = app.exec()

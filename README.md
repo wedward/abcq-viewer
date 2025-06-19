@@ -23,13 +23,12 @@ No other dependencies.
 **Windows 10 or higher (64-bit)**
 
 For pre-compiled binaries, you can either:
-- Use the QT Installer Wizard. This copies the contents of packages.zip to your home folder. It also creates a Start Menu shortcut and uninstaller executable. 
-- Or, manually copy the contents of packages.zip to your hard drive.
+- Use [ABCQ-Installer 0.1.1.exe](https://github.com/wedward/abcq-viewer/releases/download/v0.1.1/ABCQ-Installer-0.1.1.exe) -- This copies the contents of `ABCQ-0.1.1.zip` to your home folder. It also creates a Start Menu shortcut and uninstaller executable. 
+- Or, manually copy the contents of [ABCQ-0.1.1.zip](https://github.com/wedward/abcq-viewer/releases/download/v0.1.1/ABCQ-0.1.1.zip) to your hard drive.
 
 Optional:
-- Add ABCQ to your user PATH
-```
-```
+- Add ABCQ to your user PATH.
+
 <br><br>
 ## Hello Box
 GLTF are files recommended when designing with parametric CAD tools like CadQuery and Build123d.

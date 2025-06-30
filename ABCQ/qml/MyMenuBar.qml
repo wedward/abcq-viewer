@@ -142,7 +142,7 @@ MenuBar {
                 id: close
                 visible: !root.win.isMain
                 color: hovered ? "#ec4143" : "transparent"
-                onAction: root.win.main.abcqClose(win)
+                onAction: win.destroy()
                 Rectangle {
                     anchors.centerIn: parent
                     width: parent.height - 8; height: 2

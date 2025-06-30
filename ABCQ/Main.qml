@@ -47,18 +47,18 @@ ViewerWindow {
     property real heightL: 35.0 * effectiveScale
     property real heightM: 21.0 * effectiveScale
 
-    onClosing: (close) => {
+    // onClosing: (close) => {
 
-        if (childWindows.length > 0) {
-            close.accepted = false
-            main.show()
-            // exitDialog.open()
-            closeChildWindows()
-            close.accepted = true
-            main.close()
+    //     if (childWindows.length > 0) {
+    //         close.accepted = false
+    //         main.show()
+    //         // exitDialog.open()
+    //         closeChildWindows()
+    //         close.accepted = true
+    //         main.close()
 
-        }
-    }
+    //     }
+    // }
 
     Dialog {
         id: exitDialog

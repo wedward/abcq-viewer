@@ -2,6 +2,7 @@ import QtQuick
 // import QtQuick.Layouts
 import QtQuick.Controls.Basic
 import prototype
+import Themes
 
 Item{
     id: root
@@ -17,7 +18,7 @@ Item{
 
     Rectangle{
         anchors.fill: parent
-        color: mouse.containsMouse || mouse.lc ? Qt.lighter(Colors.disabledText, 1.1) : Colors.disabledText
+        color: mouse.containsMouse || mouse.lc ? Qt.lighter(Theme.disabledText, 1.1) : Theme.disabledText
         clip: true
         radius: height*.15
 
@@ -26,7 +27,7 @@ Item{
             anchors.fill: parent
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment:  Text.AlignVCenter
-            color: mouse.containsMouse || mouse.lc ? Colors.iconIndicator : Colors.textFile
+            color: mouse.containsMouse || mouse.lc ? Theme.iconIndicator : Theme.textFile
             property int tempSize: 0
             font.pixelSize: root.fontSize + tempSize
 

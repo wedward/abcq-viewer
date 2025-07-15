@@ -4,6 +4,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic
+import Themes
 
 import prototype
 pragma ComponentBehavior: Bound
@@ -17,7 +18,7 @@ Rectangle {
     signal clicked()
     signal clickedAgain()
 
-    color: Colors.surface2
+    color: Theme.surface2
 
     component SidebarEntry: Button {
         id: sidebarButton
@@ -25,7 +26,7 @@ Rectangle {
         Layout.alignment: Qt.AlignHCenter
         Layout.fillWidth: true
 
-        icon.color: down || checked ? Colors.iconIndicator : Colors.icon
+        icon.color: down || checked ? Theme.iconIndicator : Theme.icon
         icon.width: win.fontUIx * 2
         icon.height: win.fontUIx * 2
 
@@ -46,7 +47,7 @@ Rectangle {
         //     height: sidebarButton.icon.height * 1.2
 
         //     visible: sidebarButton.checked
-        //     color: Colors.color1
+        //     color: Theme.color1
         // }
     }
 

@@ -10,6 +10,7 @@ import QtQuick3D
 import RWatcher
 import FModel
 import prototype
+import Themes
 // import CustomComponents  //renderWatcher
 
 pragma ComponentBehavior: Bound
@@ -574,7 +575,7 @@ ApplicationWindow {
             }
             Rectangle {
 
-                color: Colors.surface1
+                color: Theme.surface1
 
                 Layout.fillHeight: true
                 Layout.fillWidth: true
@@ -587,7 +588,7 @@ ApplicationWindow {
 
                     FileSystemView {
                         id: fileSystemView
-                        color: Colors.surface1
+                        color: Theme.surface1
                         onFileClicked: path => root.filePath = path
                         fontUIx: root.fontUIx
 

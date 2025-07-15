@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR BSD-3-Clause
 
 import QtQuick
+import "."
 
 pragma Singleton
 
@@ -20,7 +21,7 @@ QtObject {
             name = darkmode ? "Dark" : "Light"
         }
 
-        var url = Qt.resolvedUrl("Theme"+name+".qml")
+        var url = Qt.resolvedUrl("Themes/"+name+".qml")
         var component = Qt.createComponent(url)
         if (component.status === Component.Ready){
             theme = component.createObject(colorMgr)

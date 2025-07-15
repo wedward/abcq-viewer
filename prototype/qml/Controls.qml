@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic
-
+import Themes
 import prototype
 
 // This is the Control Center for changing application state.
@@ -9,7 +9,7 @@ import prototype
 
 Rectangle{
     id: root
-    color: Colors.surface1
+    color: Theme.surface1
 
     property real fontM: win.main.fontM
     property real fontL: win.main.fontL

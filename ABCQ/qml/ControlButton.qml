@@ -1,7 +1,8 @@
 import QtQuick
 // import QtQuick.Layouts
 import QtQuick.Controls.Basic
-import ABCQ
+import "."
+import Themes
 
 Item{
     id: root
@@ -17,7 +18,7 @@ Item{
 
     Rectangle{
         anchors.fill: parent
-        color: mouse.containsMouse || mouse.lc ? Colors.theme.controlBGHi : Colors.theme.controlBG
+        color: mouse.containsMouse || mouse.lc ? Theme.theme.controlBGHi : Theme.theme.controlBG
         clip: true
         radius: height*.15
 
@@ -26,7 +27,7 @@ Item{
             anchors.fill: parent
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment:  Text.AlignVCenter
-            color: mouse.containsMouse || mouse.lc ? Colors.theme.controlTextHi : Colors.theme.controlText
+            color: mouse.containsMouse || mouse.lc ? Theme.theme.controlTextHi : Theme.theme.controlText
             property int tempSize: 0
             font.pixelSize: root.fontSize + tempSize
 

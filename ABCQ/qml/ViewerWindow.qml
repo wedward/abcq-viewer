@@ -9,7 +9,8 @@ import QtQuick3D
 
 import RWatcher
 import FModel
-import ABCQ
+import "."
+import Themes
 
 
 // import CustomComponents  //renderWatcher
@@ -536,39 +537,39 @@ ApplicationWindow {
             title: "Theme"
 
             Action{
-                property string substring: Colors.themeName === "Auto" ? "✅ " : ""
+                property string substring: Theme.themeName === "Auto" ? "✅ " : ""
                 text: "<table width='100%'><tr>" +
                       "<td align='left'>" + "Automatic" + "</td>" +
                       "<td align='right'>" + substring + "</td>" +
                       "</tr></table>"
-                onTriggered: Colors.loadTheme("Auto")
+                onTriggered: Theme.loadTheme("Auto")
 
             }
             Action{
-                property string substring: Colors.themeName === "Light" ? "✅ " : ""
+                property string substring: Theme.themeName === "Light" ? "✅ " : ""
                 text: "<table width='100%'><tr>" +
                       "<td align='left'>" + "Light" + "</td>" +
                       "<td align='right'>" + substring + "</td>" +
                       "</tr></table>"
-                onTriggered: Colors.loadTheme("Light")
+                onTriggered: Theme.loadTheme("Light")
 
             }
             Action{
-                property string substring: Colors.themeName === "Dark" ? "✅ " : ""
+                property string substring: Theme.themeName === "Dark" ? "✅ " : ""
                 text: "<table width='100%'><tr>" +
                       "<td align='left'>" + "Dark" + "</td>" +
                       "<td align='right'>" + substring + "</td>" +
                       "</tr></table>"
-                onTriggered: Colors.loadTheme("Dark")
+                onTriggered: Theme.loadTheme("Dark")
 
             }
             Action{
-                property string substring: Colors.themeName === "Wedward" ? "✅ " : ""
+                property string substring: Theme.themeName === "Wedward" ? "✅ " : ""
                 text: "<table width='100%'><tr>" +
                       "<td align='left'>" + "Wedward" + "</td>" +
                       "<td align='right'>" + substring + "</td>" +
                       "</tr></table>"
-                onTriggered: Colors.loadTheme("Wedward")
+                onTriggered: Theme.loadTheme("Wedward")
 
 
             }
@@ -620,7 +621,7 @@ ApplicationWindow {
             }
             Rectangle {
 
-                color: Colors.theme.surface1
+                color: Theme.theme.surface1
 
                 Layout.fillHeight: true
                 Layout.fillWidth: true
@@ -633,7 +634,7 @@ ApplicationWindow {
 
                     FileSystemView {
                         id: fileSystemView
-                        color: Colors.theme.surface1
+                        color: Theme.theme.surface1
                         onFileClicked: path =>
 
                                         {

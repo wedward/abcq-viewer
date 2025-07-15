@@ -3,6 +3,7 @@ import QtQuick.Effects
 import QtQuick.Controls.Basic
 import prototype
 pragma ComponentBehavior: Bound
+import Themes
 
 
 Rectangle {
@@ -64,15 +65,15 @@ Rectangle {
             contentItem: Text {
                 id: mytext
                 text: treeDelegate.fileName
-                color: Colors.text
+                color: Theme.text
                 font.pixelSize: fontUIx
 
             }
 
             background: Rectangle {
                 color: (treeDelegate.index === fileSystemTreeView.lastIndex)
-                    ? Colors.selection
-                    : (hoverHandler.hovered ? Colors.active : "transparent")
+                    ? Theme.selection
+                    : (hoverHandler.hovered ? Theme.active : "transparent")
 
 
             }
@@ -90,13 +91,13 @@ Rectangle {
                     const isFile = treeDelegate.index === fileSystemTreeView.lastIndex
                                     && !treeDelegate.hasChildren;
                     if (isFile)
-                        return Qt.lighter(Colors.folder, 3)
+                        return Qt.lighter(Theme.folder, 3)
 
                     const isExpandedFolder = treeDelegate.expanded && treeDelegate.hasChildren;
                     if (isExpandedFolder)
-                        return Colors.color2
+                        return Theme.color2
                     else
-                        return Colors.folder
+                        return Theme.folder
                 }
             }
 
@@ -154,7 +155,7 @@ Rectangle {
                 implicitWidth: 6
                 implicitHeight: 6
 
-                color: Colors.color1
+                color: Theme.color1
                 opacity: fileSystemTreeView.movingVertically ? 0.5 : 0.0
 
                 Behavior on opacity {

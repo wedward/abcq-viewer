@@ -1,7 +1,8 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls.Basic
-import ABCQ
+import "."
+import Themes
 
 import QtCore
 
@@ -42,7 +43,7 @@ ViewerWindow {
         }
     }
 
-    property string theme: Colors.themeName
+    property string theme: Theme.themeName
 
 
     property var childWindows: []
@@ -55,8 +56,8 @@ ViewerWindow {
     // property real pixelRatio:  Screen.devicePixelRatio
     property bool darkmode: Application.styleHints.colorScheme === Qt.ColorScheme.Dark
     onDarkmodeChanged: {
-        if (Colors.themeName === "Auto")
-            Colors.loadTheme("Auto")
+        if (Theme.themeName === "Auto")
+            Theme.loadTheme("Auto")
     }
 
 
@@ -116,14 +117,15 @@ ViewerWindow {
 
         console.log(main.theme)
 
-        if (main.theme === null) Colors.loadTheme("Auto")
-        else Colors.loadTheme(main.theme)
+        if (main.theme === null) Theme.loadTheme("Auto")
+        else Theme.loadTheme(main.theme)
         main.filePath = (StandardPaths.writableLocation(StandardPaths.HomeLocation)+"/output.glb").slice(8)
 
         console.log("Welcome to ABCQ!")
 
         build123d.startRepl()
     }
+
 
     Label{
 

@@ -39,30 +39,30 @@ target_link_libraries(abcq
 
 qt_add_qml_module(abcq
     URI ABCQ
-    RESOURCES
-        "icons/folder_closed.svg"
-        "icons/folder_open.svg"
-        "icons/generic_file.svg"
-        "icons/light_bulb.svg"
-        "icons/read.svg"
-        "icons/app_icon.svg"
-    QML_FILES
-        "Main.qml"
-        "qml/ViewerWindow.qml"
-        "qml/Colors.qml"
-        "qml/Viewer.qml"
-        "qml/FileSystemView.qml"
-        "qml/MyMenu.qml"
-        "qml/MyMenuBar.qml"
-        "qml/Sidebar.qml"
-        "qml/ResizeButton.qml"
-        "qml/WindowDragHandler.qml"
-        "qml/Controls.qml"
-        "qml/ControlButton.qml"
-        "qml/ThemeDark.qml"
-        "qml/ThemeLight.qml"
-        "qml/ThemeWedward.qml"
-        "qml/Environment.qml"
+#     RESOURCES
+#         "icons/folder_closed.svg"
+#         "icons/folder_open.svg"
+#         "icons/generic_file.svg"
+#         "icons/light_bulb.svg"
+#         "icons/read.svg"
+#         "icons/app_icon.svg"
+#     QML_FILES
+#         "qml/Main.qml"
+#         "qml/ViewerWindow.qml"
+#         "qml/Colors.qml"
+#         "qml/Viewer.qml"
+#         "qml/FileSystemView.qml"
+#         "qml/MyMenu.qml"
+#         "qml/MyMenuBar.qml"
+#         "qml/Sidebar.qml"
+#         "qml/ResizeButton.qml"
+#         "qml/WindowDragHandler.qml"
+#         "qml/Controls.qml"
+#         "qml/ControlButton.qml"
+#         "qml/Themes/Dark.qml"
+#         "qml/Themes/Light.qml"
+#         "qml/Themes/Wedward.qml"
+#         "qml/Environment.qml"
 
 
     SOURCES
@@ -72,9 +72,8 @@ qt_add_qml_module(abcq
         renderwatcher.cpp
         replcontroller.cpp
         replcontroller.h
-
-
-
+RESOURCES qml/qmldir
+QML_FILES qml/Themes/Dark.qml qml/Themes/Light.qml qml/Themes/Wedward.qml qml/AnimWindow.qml qml/Colors.qml qml/ControlButton.qml qml/Controls.qml qml/Dark.qml qml/Environment.qml qml/FileSystemView.qml qml/Light.qml qml/Main.qml qml/MyMenu.qml qml/MyMenuBar.qml qml/ResizeButton.qml qml/Sidebar.qml qml/Viewer.qml qml/ViewerWindow.qml qml/Wedward.qml qml/WindowDragHandler.qml
 
 
 )

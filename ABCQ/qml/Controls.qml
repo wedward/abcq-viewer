@@ -2,14 +2,15 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic
 
-import ABCQ
+import "."
+import Themes
 
 // This is the Control Center for changing application state.
 
 
 Rectangle{
     id: root
-    color: Colors.theme.surface1
+    color: Theme.theme.surface1
 
     property real fontM: win.main.fontM
     property real fontL: win.main.fontL

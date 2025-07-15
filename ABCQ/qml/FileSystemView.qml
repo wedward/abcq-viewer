@@ -1,8 +1,9 @@
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Controls.Basic
-import ABCQ
+import "."
 pragma ComponentBehavior: Bound
+import Themes
 
 
 Rectangle {
@@ -47,8 +48,8 @@ Rectangle {
                 x: treeDelegate.leftMargin + (treeDelegate.depth * treeDelegate.indentation)
                 anchors.verticalCenter: parent.verticalCenter
                 source: treeDelegate.hasChildren ? (treeDelegate.expanded
-                            ? "../icons/folder_open.svg" : "../icons/folder_closed.svg")
-                        : "../icons/generic_file.svg"
+                            ? "icons/folder_open.svg" : "icons/folder_closed.svg")
+                        : "icons/generic_file.svg"
                 sourceSize.width: 20
                 sourceSize.height: 20
                 fillMode: Image.PreserveAspectFit
@@ -64,15 +65,15 @@ Rectangle {
             contentItem: Text {
                 id: mytext
                 text: treeDelegate.fileName
-                color: Colors.theme.text
+                color: Theme.theme.text
                 font.pixelSize: fontUIx
 
             }
 
             background: Rectangle {
                 color: (treeDelegate.index === fileSystemTreeView.lastIndex)
-                    ? Colors.theme.selection
-                    : (hoverHandler.hovered ? Colors.theme.active : "transparent")
+                    ? Theme.theme.selection
+                    : (hoverHandler.hovered ? Theme.theme.active : "transparent")
 
 
             }
@@ -90,13 +91,13 @@ Rectangle {
                     const isFile = treeDelegate.index === fileSystemTreeView.lastIndex
                                     && !treeDelegate.hasChildren;
                     if (isFile)
-                        return Qt.lighter(Colors.theme.folder, 3)
+                        return Qt.lighter(Theme.theme.folder, 3)
 
                     const isExpandedFolder = treeDelegate.expanded && treeDelegate.hasChildren;
                     if (isExpandedFolder)
-                        return Colors.theme.color2
+                        return Theme.theme.color2
                     else
-                        return Colors.theme.folder
+                        return Theme.theme.folder
                 }
             }
 
@@ -154,7 +155,7 @@ Rectangle {
                 implicitWidth: 6
                 implicitHeight: 6
 
-                color: Colors.theme.color1
+                color: Theme.theme.color1
                 opacity: fileSystemTreeView.movingVertically ? 0.5 : 0.0
 
                 Behavior on opacity {

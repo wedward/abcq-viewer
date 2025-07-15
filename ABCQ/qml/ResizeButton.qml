@@ -3,7 +3,7 @@
 
 import QtQuick.Controls.Basic
 import QtQuick
-import ABCQ
+import "."
 pragma ComponentBehavior: Bound
 
 Button {

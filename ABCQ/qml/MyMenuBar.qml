@@ -24,14 +24,14 @@ MenuBar {
             text: menuBarItem.text
             font: menuBarItem.font
             elide: Text.ElideRight
-            color: menuBarItem.highlighted ? Colors.textFile : Colors.text
+            color: menuBarItem.highlighted ? Colors.theme.textFile : Colors.theme.text
             opacity: enabled ? 1.0 : 0.3
         }
 
         background: Rectangle {
             id: background
 
-            color: menuBarItem.highlighted ? Colors.selection : "transparent"
+            color: menuBarItem.highlighted ? Colors.theme.selection : "transparent"
             Rectangle {
                 id: indicator
 
@@ -39,7 +39,7 @@ MenuBar {
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.bottom: parent.bottom
 
-                color: Colors.color1
+                color: Colors.theme.color1
                 states: State {
                     name: "active"
                     when: menuBarItem.highlighted
@@ -81,7 +81,7 @@ MenuBar {
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 leftPadding: windowActions.width
-                color: Colors.text
+                color: Colors.theme.text
                 clip: true
             }
         }
@@ -103,7 +103,7 @@ MenuBar {
                 Layout.fillHeight: true
                 Layout.preferredWidth: height
 
-                color: hovered ? Colors.background : "transparent"
+                color: hovered ? Colors.theme.background : "transparent"
                 HoverHandler {
                     id: hoverHandler
                 }
@@ -119,7 +119,7 @@ MenuBar {
             //     onAction: root.win.showMinimized()
             //     Rectangle {
             //         anchors.centerIn: parent
-            //         color: parent.hovered ? Colors.iconIndicator : Colors.icon
+            //         color: parent.hovered ? Colors.theme.iconIndicator : Colors.theme.icon
             //         height: 2
             //         width: parent.height - 14
             //     }
@@ -132,7 +132,7 @@ MenuBar {
             //     Rectangle {
             //         anchors.fill: parent
             //         anchors.margins: 7
-            //         border.color: parent.hovered ? Colors.iconIndicator : Colors.icon
+            //         border.color: parent.hovered ? Colors.theme.iconIndicator : Colors.theme.icon
             //         border.width: 2
             //         color: "transparent"
             //     }
@@ -150,7 +150,7 @@ MenuBar {
                     rotation: 45
                     antialiasing: true
                     transformOrigin: Item.Center
-                    color: parent.hovered ? Colors.iconIndicator : Colors.icon
+                    color: parent.hovered ? Colors.theme.iconIndicator : Colors.theme.icon
 
                     Rectangle {
                         anchors.centerIn: parent
@@ -166,7 +166,7 @@ MenuBar {
     }
 
     background: Rectangle {
-        color: Colors.surface2
+        color: Colors.theme.surface2
         // Make the empty space drag the specified root window.
         WindowDragHandler {
             dragWindow: root.win

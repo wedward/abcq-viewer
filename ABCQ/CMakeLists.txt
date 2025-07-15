@@ -59,12 +59,20 @@ qt_add_qml_module(abcq
         "qml/WindowDragHandler.qml"
         "qml/Controls.qml"
         "qml/ControlButton.qml"
+        "qml/ThemeDark.qml"
+        "qml/ThemeLight.qml"
+        "qml/ThemeWedward.qml"
+        "qml/Environment.qml"
+
 
     SOURCES
         filesystemmodel.cpp
         filesystemmodel.h
         renderwatcher.h
         renderwatcher.cpp
+
+
+
 
 
 )

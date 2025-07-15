@@ -17,7 +17,7 @@ Item{
 
     Rectangle{
         anchors.fill: parent
-        color: mouse.containsMouse || mouse.lc ? Qt.lighter(Colors.disabledText, 1.1) : Colors.disabledText
+        color: mouse.containsMouse || mouse.lc ? Colors.theme.controlBGHi : Colors.theme.controlBG
         clip: true
         radius: height*.15
 
@@ -26,7 +26,7 @@ Item{
             anchors.fill: parent
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment:  Text.AlignVCenter
-            color: mouse.containsMouse || mouse.lc ? Colors.iconIndicator : Colors.textFile
+            color: mouse.containsMouse || mouse.lc ? Colors.theme.controlTextHi : Colors.theme.controlText
             property int tempSize: 0
             font.pixelSize: root.fontSize + tempSize
 

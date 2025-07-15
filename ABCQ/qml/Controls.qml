@@ -9,7 +9,7 @@ import ABCQ
 
 Rectangle{
     id: root
-    color: Colors.surface1
+    color: Colors.theme.surface1
 
     property real fontM: win.main.fontM
     property real fontL: win.main.fontL

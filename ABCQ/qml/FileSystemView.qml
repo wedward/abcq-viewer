@@ -64,15 +64,15 @@ Rectangle {
             contentItem: Text {
                 id: mytext
                 text: treeDelegate.fileName
-                color: Colors.text
+                color: Colors.theme.text
                 font.pixelSize: fontUIx
 
             }
 
             background: Rectangle {
                 color: (treeDelegate.index === fileSystemTreeView.lastIndex)
-                    ? Colors.selection
-                    : (hoverHandler.hovered ? Colors.active : "transparent")
+                    ? Colors.theme.selection
+                    : (hoverHandler.hovered ? Colors.theme.active : "transparent")
 
 
             }
@@ -90,13 +90,13 @@ Rectangle {
                     const isFile = treeDelegate.index === fileSystemTreeView.lastIndex
                                     && !treeDelegate.hasChildren;
                     if (isFile)
-                        return Qt.lighter(Colors.folder, 3)
+                        return Qt.lighter(Colors.theme.folder, 3)
 
                     const isExpandedFolder = treeDelegate.expanded && treeDelegate.hasChildren;
                     if (isExpandedFolder)
-                        return Colors.color2
+                        return Colors.theme.color2
                     else
-                        return Colors.folder
+                        return Colors.theme.folder
                 }
             }
 
@@ -154,7 +154,7 @@ Rectangle {
                 implicitWidth: 6
                 implicitHeight: 6
 
-                color: Colors.color1
+                color: Colors.theme.color1
                 opacity: fileSystemTreeView.movingVertically ? 0.5 : 0.0
 
                 Behavior on opacity {

@@ -24,7 +24,7 @@ Menu {
                 textFormat: Text.RichText
 
                 text: menuItem.text
-                color: enabled ? Colors.text : Colors.disabledText
+                color: enabled ? Colors.theme.text : Colors.theme.disabledText
                 font.pixelSize: fontUIx
             }
             Rectangle {
@@ -36,20 +36,20 @@ Menu {
                 height: 4
 
                 visible: menuItem.highlighted
-                color: Colors.color1
+                color: Colors.theme.color1
             }
         }
         background: Rectangle {
             // implicitWidth: 17*fontUIx
             implicitHeight: fontUIx * 2
             implicitWidth: root.width
-            color: menuItem.highlighted ? Colors.active : "transparent"
+            color: menuItem.highlighted ? Colors.theme.active : "transparent"
         }
     }
     background: Rectangle {
         // implicitWidth: 17*fontUIx
         implicitHeight: fontUIx * 2
         implicitWidth: root.width
-        color: Colors.surface2
+        color: Colors.theme.surface2
     }
 }

@@ -17,7 +17,7 @@ Rectangle {
     signal clicked()
     signal clickedAgain()
 
-    color: Colors.surface2
+    color: Colors.theme.surface2
 
     component SidebarEntry: Button {
         id: sidebarButton
@@ -25,7 +25,7 @@ Rectangle {
         Layout.alignment: Qt.AlignHCenter
         Layout.fillWidth: true
 
-        icon.color: down || checked ? Colors.iconIndicator : Colors.icon
+        icon.color: down || checked ? Colors.theme.iconIndicator : Colors.theme.icon
         icon.width: win.fontUIx * 2
         icon.height: win.fontUIx * 2
 
@@ -46,7 +46,7 @@ Rectangle {
         //     height: sidebarButton.icon.height * 1.2
 
         //     visible: sidebarButton.checked
-        //     color: Colors.color1
+        //     color: Colors.theme.color1
         // }
     }
 
@@ -110,6 +110,21 @@ Rectangle {
             // Shows the file system when clicked.
             SidebarEntry {
                 id: filesystemTab
+
+                icon.source: "../icons/light_bulb.svg"
+                checkable: true
+                onPressed: {
+                    if (checked) root.clickedAgain()
+                }
+
+
+                onCheckedChanged:  {
+                    if (checked) root.clicked()
+                }
+            }
+
+            SidebarEntry {
+                id: environmentTab
 
                 icon.source: "../icons/light_bulb.svg"
                 checkable: true

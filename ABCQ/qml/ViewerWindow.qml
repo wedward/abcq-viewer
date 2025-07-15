@@ -10,6 +10,8 @@ import QtQuick3D
 import RWatcher
 import FModel
 import ABCQ
+
+
 // import CustomComponents  //renderWatcher
 
 pragma ComponentBehavior: Bound
@@ -79,7 +81,7 @@ ApplicationWindow {
 
         Timer{
 
-            interval: 2000
+            interval: 1000
             repeat: true
             running: root.resizing
 
@@ -248,15 +250,17 @@ ApplicationWindow {
 
             }
 
-            Action{
-                text: "<table width='100%'><tr>" +
-                      "<td align='left'>" + "Previous Window" + "</td>" +
-                      "<td align='right'>" + shortcut + "</td>" +
-                      "</tr></table>"
-                onTriggered: main.reopen()
-                enabled: main.purgatory !== null
-                shortcut: "Ctrl+Shift+N"
-            }
+            // fuction disabled by close windows bugfix
+
+            // Action{
+            //     text: "<table width='100%'><tr>" +
+            //           "<td align='left'>" + "Previous Window" + "</td>" +
+            //           "<td align='right'>" + shortcut + "</td>" +
+            //           "</tr></table>"
+            //     onTriggered: main.reopen()
+            //     enabled: main.purgatory !== null
+            //     shortcut: "Ctrl+Shift+N"
+            // }
 
 
             Action{
@@ -527,6 +531,49 @@ ApplicationWindow {
             }
         }
 
+        MyMenu {
+            fontUIx: root.fontUIx
+            title: "Theme"
+
+            Action{
+                property string substring: Colors.themeName === "Auto" ? "✅ " : ""
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Automatic" + "</td>" +
+                      "<td align='right'>" + substring + "</td>" +
+                      "</tr></table>"
+                onTriggered: Colors.loadTheme("Auto")
+
+            }
+            Action{
+                property string substring: Colors.themeName === "Light" ? "✅ " : ""
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Light" + "</td>" +
+                      "<td align='right'>" + substring + "</td>" +
+                      "</tr></table>"
+                onTriggered: Colors.loadTheme("Light")
+
+            }
+            Action{
+                property string substring: Colors.themeName === "Dark" ? "✅ " : ""
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Dark" + "</td>" +
+                      "<td align='right'>" + substring + "</td>" +
+                      "</tr></table>"
+                onTriggered: Colors.loadTheme("Dark")
+
+            }
+            Action{
+                property string substring: Colors.themeName === "Wedward" ? "✅ " : ""
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Wedward" + "</td>" +
+                      "<td align='right'>" + substring + "</td>" +
+                      "</tr></table>"
+                onTriggered: Colors.loadTheme("Wedward")
+
+
+            }
+        }
+
     }
 
     SplitView{
@@ -573,7 +620,7 @@ ApplicationWindow {
             }
             Rectangle {
 
-                color: Colors.surface1
+                color: Colors.theme.surface1
 
                 Layout.fillHeight: true
                 Layout.fillWidth: true
@@ -586,7 +633,7 @@ ApplicationWindow {
 
                     FileSystemView {
                         id: fileSystemView
-                        color: Colors.surface1
+                        color: Colors.theme.surface1
                         onFileClicked: path => root.filePath = path
                         fontUIx: root.fontUIx
 
@@ -611,6 +658,12 @@ ApplicationWindow {
                         opacity: !drawerAjar ? 1 : (drawer.width-sidebar.width)/50
                     }
 
+                    Environment{
+                        color: "blue"
+                        SplitView.fillHeight: true
+                        SplitView.preferredWidth: 250
+                    }
+
 
                 }
             }
@@ -629,6 +682,7 @@ ApplicationWindow {
             layer.enabled: true
             layer.live: root.canUpdateScreen
             layer.smooth: true
+            layer.mipmap: true
 
 
         }

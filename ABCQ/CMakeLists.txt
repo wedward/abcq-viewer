@@ -70,6 +70,8 @@ qt_add_qml_module(abcq
         filesystemmodel.h
         renderwatcher.h
         renderwatcher.cpp
+        replcontroller.cpp
+        replcontroller.h
 
 
 

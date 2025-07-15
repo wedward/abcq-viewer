@@ -10,6 +10,8 @@
 
 #include "filesystemmodel.h"
 #include "renderwatcher.h"
+#include "replcontroller.h"
+
 
 // #include <QUrl>
 
@@ -47,6 +49,8 @@ int main(int argc, char *argv[])
     QString backendStr = "cpp";
     engine.rootContext()->setContextProperty("appPath", appRootPath);
     engine.rootContext()->setContextProperty("backend",backendStr);
+    ReplController replController;
+    engine.rootContext()->setContextProperty("build123d", &replController);
 
 
 

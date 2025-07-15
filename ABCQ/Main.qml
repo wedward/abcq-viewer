@@ -25,6 +25,23 @@ ViewerWindow {
         property alias theme: main.theme
     }
 
+
+    Connections {
+        target: build123d
+
+        function onReplOutput(output) {
+           console.log('[BUILD]: '+ output)
+        }
+
+        function onReplError(error) {
+            console.log("[BUILD] err: " + error)
+        }
+
+        function onReplClosed() {
+            console.log("[BUILD]: 'goodbye world!'")
+        }
+    }
+
     property string theme: Colors.themeName
 
 
@@ -104,6 +121,8 @@ ViewerWindow {
         main.filePath = (StandardPaths.writableLocation(StandardPaths.HomeLocation)+"/output.glb").slice(8)
 
         console.log("Welcome to ABCQ!")
+
+        build123d.startRepl()
     }
 
     Label{

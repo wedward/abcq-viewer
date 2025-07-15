@@ -514,22 +514,22 @@ ApplicationWindow {
                 shortcut: "n"
             }
         }
-        MyMenu {
-            fontUIx: root.fontUIx
-            title: backend ==="cpp" ? "Python" : "🐍 🐍 🐍"
-            Action {
-                property string substring: backend === "cpp" ?"Launch prototype.py" : "🐍 🐍 🐍 🐍 🐍"
-                // property bool cpp: typeof appPath !== "undefined"
-                text: "<table width='100%'><tr>" +
-                      "<td align='center'>" + "🐍 "+ substring +" 🐍" + "</td>" +
-                      "</tr></table>"
-                onTriggered: Qt.openUrlExternally(appPath+"/prototype.bat")
-                shortcut: "Ctrl+Shift+F3"
+        // MyMenu {
+        //     fontUIx: root.fontUIx
+        //     title: backend ==="cpp" ? "Python" : "🐍 🐍 🐍"
+        //     Action {
+        //         property string substring: backend === "cpp" ?"Launch prototype.py" : "🐍 🐍 🐍 🐍 🐍"
+        //         // property bool cpp: typeof appPath !== "undefined"
+        //         text: "<table width='100%'><tr>" +
+        //               "<td align='center'>" + "🐍 "+ substring +" 🐍" + "</td>" +
+        //               "</tr></table>"
+        //         onTriggered: Qt.openUrlExternally(appPath+"/prototype.bat")
+        //         shortcut: "Ctrl+Shift+F3"
 
-                // check if running cpp/py
-                enabled: backend === "cpp"
-            }
-        }
+        //         // check if running cpp/py
+        //         enabled: backend === "cpp"
+        //     }
+        // }
 
         MyMenu {
             fontUIx: root.fontUIx
@@ -634,7 +634,24 @@ ApplicationWindow {
                     FileSystemView {
                         id: fileSystemView
                         color: Colors.theme.surface1
-                        onFileClicked: path => root.filePath = path
+                        onFileClicked: path =>
+
+                                        {
+                                           if (path.slice(-4)==='brep'){
+
+                                               console.log('BREP!!! ' + path)
+
+                                               build123d.sendCommand('BREP '+path)
+
+                                               root.filePath = 'C:/will/buildpy/output.glb'
+
+                                            }
+                                           else {
+                                                root.filePath = path
+                                           }
+
+                                       }
+
                         fontUIx: root.fontUIx
 
                         onRequestOpen: path => {

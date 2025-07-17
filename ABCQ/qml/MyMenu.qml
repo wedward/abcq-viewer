@@ -22,9 +22,9 @@ Menu {
 
                 width: parent.width-9
 
-                textFormat: Text.RichText
+                // textFormat: Text.RichText
 
-                text: menuItem.text
+                text: hovered ? menuItem.text + "       " + menuItem.action.shortcut : menuItem.text
                 color: enabled ? Theme.theme.text : Theme.theme.disabledText
                 font.pixelSize: fontUIx
             }

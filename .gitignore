@@ -7,3 +7,4 @@ ABCQ/CMakeLists.txt.user
 *.exe
 /code/build
 *.user
+/.vscode

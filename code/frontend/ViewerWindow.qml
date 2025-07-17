@@ -567,11 +567,11 @@ ApplicationWindow {
                         opacity: !drawerAjar ? 1 : (drawer.width-sidebar.width)/50
                     }
 
-                    Environment{
-                        color: "blue"
-                        SplitView.fillHeight: true
-                        SplitView.preferredWidth: 250
-                    }
+                    // Environment{
+                    //     color: "blue"
+                    //     SplitView.fillHeight: true
+                    //     SplitView.preferredWidth: 250
+                    // }
 
 
                 }

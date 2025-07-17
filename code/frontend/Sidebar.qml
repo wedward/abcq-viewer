@@ -124,20 +124,20 @@ Rectangle {
                 }
             }
 
-            SidebarEntry {
-                id: environmentTab
+            // SidebarEntry {
+            //     id: environmentTab
 
-                icon.source: "icons/light_bulb.svg"
-                checkable: true
-                onPressed: {
-                    if (checked) root.clickedAgain()
-                }
+            //     icon.source: "icons/light_bulb.svg"
+            //     checkable: true
+            //     onPressed: {
+            //         if (checked) root.clickedAgain()
+            //     }
 
 
-                onCheckedChanged:  {
-                    if (checked) root.clicked()
-                }
-            }
+            //     onCheckedChanged:  {
+            //         if (checked) root.clicked()
+            //     }
+            // }
         }
 
         // This item acts as a spacer to expand between the checkable and non-checkable buttons.

@@ -11,46 +11,18 @@
 #include "filesystemmodel.h"
 #include "renderwatcher.h"
 #include "replcontroller.h"
-#include <QDebug>
-#ifdef _WIN32
-#include <windows.h>
-#endif
+
 
 // #include <QUrl>
 
 int main(int argc, char *argv[])
 {
-
-#ifdef _WIN32
-        // Convert argv to a QStringList for easier flag parsing
-    QStringList winargs;
-    for (int i = 1; i < argc; ++i) {
-        winargs << QString::fromLocal8Bit(argv[i]);
-    }
-
-    // Check if -p or --proto is present
-    if (winargs.contains("-p") || winargs.contains("--proto")) {
-        AllocConsole();
-        freopen("CONOUT$", "w", stdout);
-        freopen("CONOUT$", "w", stderr);
-        qDebug() << "Console attached for prototype mode";
-    }
-#endif
-
     QGuiApplication app(argc, argv);
-    qDebug() << "BACKEND INIT";
     // qmlRegisterType<RenderWatcher>("CustomComponents", 1, 0, "RenderWatcher");
     qmlRegisterType<RenderWatcher>("RWatcher", 1, 0, "RenderWatcher");
     qmlRegisterType<FileSystemModel>("FModel", 1,0, "FileSystemModel");
-    // qmlRegisterSingletonType(QUrl("file:///C:/will/abcdev/abcq-viewer/ABCQ/qml/Colors.qml"),
-    //                          "Themes", 1, 0, "Theme");
-
-    // Register signleton only accepts absolute paths
-    QString relativePath = "ABCQ/qml/Colors.qml";
-    QString absolutePath = QDir::cleanPath(QDir::current().absoluteFilePath(relativePath));
-    QUrl fileUrl = QUrl::fromLocalFile(absolutePath);
-
-    qmlRegisterSingletonType(QUrl(fileUrl), "Themes", 1, 0, "Theme");
+    qmlRegisterSingletonType(QUrl("file:///C:/will/abcdev/abcq-viewer/ABCQ/qml/Colors.qml"),
+                             "Themes", 1, 0, "Theme");
     QGuiApplication::setOrganizationName("ABCQ");
     QGuiApplication::setApplicationName("ABCQ Viewer");
     QGuiApplication::setApplicationVersion("0.1.1");
@@ -64,35 +36,19 @@ int main(int argc, char *argv[])
                                        "Initial directory to display in the file browser.",
                                        "directory");
     parser.addOption(directoryOption);
+
     parser.addPositionalArgument("","Initial directory","[path]");
-
-    QCommandLineOption protoOption(QStringList() << "p" << "proto",
-                                   "Start ABCQ in the development sandbox.",
-                                   "proto");
-    parser.addOption(protoOption);
-    parser.addPositionalArgument("", "Prototype", "");
-
     parser.process(app);
     const auto args = parser.positionalArguments();
     QString initialDir = parser.value(directoryOption);
 
-    QString protoName = parser.value(protoOption);
-    QString backendStr;
-
-    if (!protoName.isEmpty()){
-        qDebug() << protoName;
-        backendStr = protoName;
-
-    } else {
-        backendStr = "prod";
-    }
 
 
     QQmlApplicationEngine engine;
 
     // SET CONTEXT
     QString appRootPath = QCoreApplication::applicationDirPath().replace("\\", "/");
-
+    QString backendStr = "cpp";
     engine.rootContext()->setContextProperty("appPath", appRootPath);
     engine.rootContext()->setContextProperty("backend",backendStr);
     ReplController replController;
@@ -103,14 +59,7 @@ int main(int argc, char *argv[])
     // engine.loadFromModule("ABCQ", "Main");
     // engine.addImportPath("C:/will/abcdev/abcq-viewer/ABCQ/qml");
 
-    QString mainQml;
-    if (backendStr == "prod"){
-        mainQml = "ABCQ/qml/Main.qml";
-    } else {
-        mainQml = "ABCQ/proto/Main.qml";
-    }
-
-
+    QString mainQml = "C:/will/abcdev/abcq-viewer/ABCQ/qml/Main.qml";
     engine.load(QUrl::fromLocalFile(mainQml));
 
 

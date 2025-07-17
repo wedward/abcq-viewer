@@ -104,7 +104,7 @@ MenuBar {
                 Layout.fillHeight: true
                 Layout.preferredWidth: height
 
-                color: hovered ? Theme.theme.surface1 : "transparent"
+                color: hovered ? Theme.theme.background : "transparent"
                 HoverHandler {
                     id: hoverHandler
                 }
@@ -114,17 +114,17 @@ MenuBar {
                 }
             }
 
-            InteractionButton {
-                id: minimize
-                // visible: !root.win.isMain
-                onAction: root.win.showMinimized()
-                Rectangle {
-                    anchors.centerIn: parent
-                    color: parent.hovered ? Theme.theme.iconIndicator : Theme.theme.icon
-                    height: 2
-                    width: parent.height - 14
-                }
-            }
+            // InteractionButton {
+            //     id: minimize
+            //     visible: !root.win.isMain
+            //     onAction: root.win.showMinimized()
+            //     Rectangle {
+            //         anchors.centerIn: parent
+            //         color: parent.hovered ? Theme.theme.iconIndicator : Theme.theme.icon
+            //         height: 2
+            //         width: parent.height - 14
+            //     }
+            // }
 
             // InteractionButton {
             //     id: maximize
@@ -141,9 +141,9 @@ MenuBar {
 
             InteractionButton {
                 id: close
-                // visible: !root.win.isMain
+                visible: !root.win.isMain
                 color: hovered ? "#ec4143" : "transparent"
-                onAction: win.isMain ? Qt.exit(0) : win.destroy()
+                onAction: win.destroy()
                 Rectangle {
                     anchors.centerIn: parent
                     width: parent.height - 8; height: 2

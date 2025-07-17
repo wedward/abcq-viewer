@@ -193,47 +193,102 @@ ApplicationWindow {
             backup = ""
         }
     }
+    Action {
 
+        text: "<table width='100%'><tr>" +
+              "<td align='left'>" + "Colapse Folders" + "</td>" +
+              "<td align='right'>" + shortcut + "</td>" +
+              "</tr></table>"
+        enabled: true //sidebar.currentTabIndex === 1
+        onTriggered:  {
+            fileSystemView.rootIndex = undefined
+        }
+        shortcut: "Ctrl+/"
+    }
 
     menuBar: MyMenuBar {
-        id: mb
+        id: menuBar
         win: root
         // infoText: "TopBarText"
         visible: root.viewMenus
-
-        property string spacer: ":      \t"
         font.pixelSize: fontUIx
 
         MyMenu {
             id: fileMenu
+
+            property var temp
+
+            Component{
+                id: dummyLoader
+                Shortcut{
+
+                    enabled: false
+                    sequence: {sequence= fileMenu.temp}
+
+                }
+            }
+
+            function getShorty(s){
+                fileMenu.temp = s
+                let dummy = dummyLoader.createObject()
+                let ret = dummy.nativeText
+                dummy.destroy()
+                return ret
+            }
             fontUIx: root.fontUIx
             title: "File"
 
-            Action {
-             
 
-                text: "New Window"
+            Action {
+                // text: "<table width='100%'><tr><td align='left'>Label</td><td align='right'>Value</td></tr></table>"
+
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "New Window" + "</td>" +
+                      "<td align='right'>" + fileMenu.getShorty(shortcut) + "</td>" +
+                      "</tr></table>"
                 onTriggered: newWindow()
                 shortcut: StandardKey.New
 
             }
 
+            // fuction disabled by close windows bugfix
+
+            // Action{
+            //     text: "<table width='100%'><tr>" +
+            //           "<td align='left'>" + "Previous Window" + "</td>" +
+            //           "<td align='right'>" + shortcut + "</td>" +
+            //           "</tr></table>"
+            //     onTriggered: main.reopen()
+            //     enabled: main.purgatory !== null
+            //     shortcut: "Ctrl+Shift+N"
+            // }
+
+
             Action{
 
-                text: "Refresh"
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Refresh"+ "</td>" +
+                      "<td align='right'>" + shortcut+ "</td>" +
+                      "</tr></table>"
                 onTriggered: reloadTimer.start()
                 shortcut: "F5"
 
             }
             Action{
                 property string substring: viewMenus ? "Hide":"Show"
-                text: substring + " Menus" 
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + substring + " Menus" + "</td>" +
+                      "<td align='right'>" + shortcut + "</td>" +
+                      "</tr></table>"
                 onTriggered: toggleMenus()
                 shortcut: "Escape"
             }
             Action{
                 property string substring: drawerAjar ? "Show":"Hide"
-                text: substring + " Drawer"  
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + substring + " Drawer" + "</td>" +
+                      "<td align='right'>" + shortcut+ "</td>" +
+                      "</tr></table>"
                 onTriggered: toggleDrawer()
                 shortcut: "Tab"
 
@@ -241,19 +296,28 @@ ApplicationWindow {
 
             Action{
 
-                text: "Increase Text Size"   
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Increase Text"+ "</td>" +
+                      "<td align='right'>" +shortcut+ "</td>" +
+                      "</tr></table>"
                 onTriggered: main.increaseScale()
                 shortcut: "="
 
             }
             Action{
-                text: "Decrease Text Size"   
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Decrease Text" +"</td>" +
+                      "<td align='right'>" + shortcut+ "</td>" +
+                      "</tr></table>"
                 onTriggered: main.decreaseScale()
                 shortcut: "-"
 
             }
             Action{
-                text: "Reset Text Size"   
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Reset Text"+ "</td>" +
+                      "<td align='right'>" + shortcut+ "</td>" +
+                      "</tr></table>"
                 onTriggered: main.resetScale()
                 shortcut: "Backspace"
 
@@ -261,28 +325,30 @@ ApplicationWindow {
 
             Action{
                 property string substring: filewatcher.listening ? "ON" : "OFF"
-                text: "Auto-Reload: " + substring  
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Auto-reload " + substring + "</td>" +
+                      "<td align='right'>" + shortcut+ "</td>" +
+                      "</tr></table>"
                 onTriggered: toggleWatcher()
                 shortcut: "F2"
 
             }
             Action{
-                text: "Reset Reload Interval"  
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Reset Reload Interval" + "</td>" +
+                      "<td align='right'>" + shortcut+ "</td>" +
+                      "</tr></table>"
                 onTriggered: main.resetIntervalMS()
-                // shortcut: "Ctrl+F2"
+                shortcut: "Ctrl+F2"
 
-            }
-
-
-            Action{
-                text: "Launch Prototype Sandbox"  
-                onTriggered: Qt.openUrlExternally(appPath+"/proto.bat")
-                shortcut: "F6"
             }
 
 
             Action {
-                text: "Exit"
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Exit" + "</td>" +
+                      "<td align='right'>" +"</td>" +
+                      "</tr></table>"
                 onTriggered: Qt.exit(0)
                 shortcut: StandardKey.Quit
             }
@@ -295,72 +361,106 @@ ApplicationWindow {
             title: "Camera"
 
             Action{
-                text: "Top"
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Top" + "</td>" +
+                      "<td align='right'>" + shortcut + "</td>" +
+                      "</tr></table>"
                 onTriggered: viewer.scn.top()
-
+                // enabled: main.purgatory !== null
                 shortcut: "1"
             }
             Action{
-                text: "Bottom"
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Bottom" + "</td>" +
+                      "<td align='right'>" + shortcut + "</td>" +
+                      "</tr></table>"
                 onTriggered: viewer.scn.bottom()
+                // enabled: main.purgatory !== null
                 shortcut: "2"
             }
             Action{
-                text: "Right"
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Right" + "</td>" +
+                      "<td align='right'>" + shortcut + "</td>" +
+                      "</tr></table>"
                 onTriggered: viewer.scn.right()
-
+                // enabled: main.purgatory !== null
                 shortcut: "3"
             }
             Action{
-                text: "Left"
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Left" + "</td>" +
+                      "<td align='right'>" + shortcut + "</td>" +
+                      "</tr></table>"
                 onTriggered: viewer.scn.left()
-
+                // enabled: main.purgatory !== null
                 shortcut: "4"
             }
             Action{
-                text: "Front"
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Front" + "</td>" +
+                      "<td align='right'>" + shortcut + "</td>" +
+                      "</tr></table>"
                 onTriggered: viewer.scn.front()
- 
+                // enabled: main.purgatory !== null
                 shortcut: "5"
             }
             Action{
-                text: "Back"
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Back" + "</td>" +
+                      "<td align='right'>" + shortcut + "</td>" +
+                      "</tr></table>"
                 onTriggered: viewer.scn.back()
- 
+                // enabled: main.purgatory !== null
                 shortcut: "6"
             }
             Action{
                 property string substring: viewer.scn.activeCam === viewer.scn.camOrtho ? "Orthographic":"Perspective"
-                text: "View: " + substring 
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "View: " + substring + "</td>" +
+                      "<td align='right'>" + shortcut + "</td>" +
+                      "</tr></table>"
                 onTriggered: viewer.scn.swapCam()
-  
+                // enabled: main.purgatory !== null
                 shortcut: "7"
             }
             Action{
                 property string substring: viewer.scn.normsOn ? "Normals":"OFF"
-                text: "Debug: " + substring 
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Debug: " + substring + "</td>" +
+                      "<td align='right'>" + shortcut + "</td>" +
+                      "</tr></table>"
                 onTriggered: viewer.scn.toggleNorms()
- 
+                // enabled: main.purgatory !== null
                 shortcut: "8"
             }
             Action{
                 property string substring: viewer.scn.shadowQual ===Light.Hard ? "Hard":"Soft"
-                text: "Shadows: " + substring 
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Shadows: " + substring + "</td>" +
+                      "<td align='right'>" + shortcut + "</td>" +
+                      "</tr></table>"
                 onTriggered: viewer.scn.toggleShadowQual()
- 
+                // enabled: main.purgatory !== null
                 shortcut: "9"
             }
             Action{
                 // property string substring: viewer.scn.shadowQual ===Light.Hard ? "Hard":"Soft"
-                text: "Reset Zoom"
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Reset Zoom" + "</td>" +
+                      "<td align='right'>" + shortcut + "</td>" +
+                      "</tr></table>"
                 onTriggered: viewer.scn.resetZoom()
- 
+                // enabled: main.purgatory !== null
                 shortcut: "0"
             }
             Action{
-                text: "Resest Z-dist."
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Reset Z Dist." + "</td>" +
+                      "<td align='right'>" + shortcut + "</td>" +
+                      "</tr></table>"
                 onTriggered: viewer.scn.resetZDist()
- 
+                // enabled: main.purgatory !== null
                 shortcut: "Ctrl+0"
             }
         }
@@ -370,33 +470,48 @@ ApplicationWindow {
 
             Action{
                 property string substring: viewer.scn.animRunning ? "Stop":"Start"
-                text: "Animation: " + substring
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + substring + "</td>" +
+                      "<td align='right'>" + shortcut + "</td>" +
+                      "</tr></table>"
                 onTriggered: viewer.scn.toggleAnim()
- 
+                // enabled: main.purgatory !== null
                 shortcut: "Space"
             }
             Action{
-                text: "Increase Speed"
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Increase Speed" + "</td>" +
+                      "<td align='right'>" + shortcut  + "</td>" +
+                      "</tr></table>"
                 onTriggered: viewer.scn.increaseAnimSpeed(-0.1)
- 
+                // enabled: main.purgatory !== null
                 shortcut: "."
             }
             Action{
-                text: "Decrease Speed"
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Decrease Speed" + "</td>" +
+                      "<td align='right'>" + shortcut + "</td>" +
+                      "</tr></table>"
                 onTriggered: viewer.scn.increaseAnimSpeed(.1)
- 
+                // enabled: main.purgatory !== null
                 shortcut: ","
             }
             Action{
-                text: "Toggle Direction"
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Change Direction" + "</td>" +
+                      "<td align='right'>" + shortcut + "</td>" +
+                      "</tr></table>"
                 onTriggered: viewer.scn.changeAnimDir()
- 
+                // enabled: main.purgatory !== null
                 shortcut: "m"
             }
             Action{
-                text: "Toggle Axis"
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Change Axis" + "</td>" +
+                      "<td align='right'>" + shortcut + "</td>" +
+                      "</tr></table>"
                 onTriggered: viewer.scn.changeAnimAxis()
- 
+                // enabled: main.purgatory !== null
                 shortcut: "n"
             }
         }
@@ -526,8 +641,10 @@ ApplicationWindow {
                                            if (path.slice(-4)==='brep'){
 
                                                console.log('BREP!!! ' + path)
+
                                                build123d.sendCommand('BREP '+path)
-                                               root.filePath = 'C:/Users/wehos/nuitest/output.glb'
+
+                                               root.filePath = 'C:/will/buildpy/output.glb'
 
                                             }
                                            else {

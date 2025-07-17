@@ -14,8 +14,7 @@ import QtCore
 ViewerWindow {
     id: main
     main: main
-    // flags:  Qt.Window
-    flags:  Qt.FramelessWindowHint | Qt.Window
+    flags:  Qt.Window
     // backend property string appPath
     // backend property string backend // "py" or "cpp"
 

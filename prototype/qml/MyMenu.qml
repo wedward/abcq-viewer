@@ -3,7 +3,7 @@
 
 import QtQuick
 import QtQuick.Controls.Basic
-import "."
+import prototype
 import Themes
 pragma ComponentBehavior: Bound
 Menu {
@@ -25,7 +25,7 @@ Menu {
                 textFormat: Text.RichText
 
                 text: menuItem.text
-                color: enabled ? Theme.theme.text : Theme.theme.disabledText
+                color: enabled ? Theme.text : Theme.disabledText
                 font.pixelSize: fontUIx
             }
             Rectangle {
@@ -37,20 +37,20 @@ Menu {
                 height: 4
 
                 visible: menuItem.highlighted
-                color: Theme.theme.color1
+                color: Theme.color1
             }
         }
         background: Rectangle {
             // implicitWidth: 17*fontUIx
             implicitHeight: fontUIx * 2
             implicitWidth: root.width
-            color: menuItem.highlighted ? Theme.theme.active : "transparent"
+            color: menuItem.highlighted ? Theme.active : "transparent"
         }
     }
     background: Rectangle {
         // implicitWidth: 17*fontUIx
         implicitHeight: fontUIx * 2
         implicitWidth: root.width
-        color: Theme.theme.surface2
+        color: Theme.surface2
     }
 }

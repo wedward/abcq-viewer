@@ -4,6 +4,3 @@ ABCQ/CMakeLists.txt.user
 ABCQ/qml/AnimWindow.qml
 ABCQ/qml/AnimWindow.qml
 ABCQ/qml/AnimWindow.qml
-/qml
-*.dll
-*.exe

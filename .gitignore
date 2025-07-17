@@ -1,9 +1,7 @@
 /ABCQ/build
 /__pycache__
 ABCQ/CMakeLists.txt.user
-ABCQ/qml/AnimWindow.qml
-ABCQ/qml/AnimWindow.qml
-ABCQ/qml/AnimWindow.qml
+qmldir
 /qml
 *.dll
 *.exe

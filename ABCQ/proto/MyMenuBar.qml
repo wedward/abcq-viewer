@@ -4,7 +4,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic
-import prototype
+import "."
 import Themes
 pragma ComponentBehavior: Bound
 
@@ -25,14 +25,14 @@ MenuBar {
             text: menuBarItem.text
             font: menuBarItem.font
             elide: Text.ElideRight
-            color: menuBarItem.highlighted ? Theme.textFile : Theme.text
+            color: menuBarItem.highlighted ? Theme.theme.textFile : Theme.theme.text
             opacity: enabled ? 1.0 : 0.3
         }
 
         background: Rectangle {
             id: background
 
-            color: menuBarItem.highlighted ? Theme.selection : "transparent"
+            color: menuBarItem.highlighted ? Theme.theme.selection : "transparent"
             Rectangle {
                 id: indicator
 
@@ -40,7 +40,7 @@ MenuBar {
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.bottom: parent.bottom
 
-                color: Theme.color1
+                color: Theme.theme.color1
                 states: State {
                     name: "active"
                     when: menuBarItem.highlighted
@@ -82,7 +82,7 @@ MenuBar {
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 leftPadding: windowActions.width
-                color: Theme.text
+                color: Theme.theme.text
                 clip: true
             }
         }
@@ -104,7 +104,7 @@ MenuBar {
                 Layout.fillHeight: true
                 Layout.preferredWidth: height
 
-                color: hovered ? Theme.background : "transparent"
+                color: hovered ? Theme.theme.background : "transparent"
                 HoverHandler {
                     id: hoverHandler
                 }
@@ -120,7 +120,7 @@ MenuBar {
             //     onAction: root.win.showMinimized()
             //     Rectangle {
             //         anchors.centerIn: parent
-            //         color: parent.hovered ? Theme.iconIndicator : Theme.icon
+            //         color: parent.hovered ? Theme.theme.iconIndicator : Theme.theme.icon
             //         height: 2
             //         width: parent.height - 14
             //     }
@@ -133,7 +133,7 @@ MenuBar {
             //     Rectangle {
             //         anchors.fill: parent
             //         anchors.margins: 7
-            //         border.color: parent.hovered ? Theme.iconIndicator : Theme.icon
+            //         border.color: parent.hovered ? Theme.theme.iconIndicator : Theme.theme.icon
             //         border.width: 2
             //         color: "transparent"
             //     }
@@ -143,7 +143,7 @@ MenuBar {
                 id: close
                 visible: !root.win.isMain
                 color: hovered ? "#ec4143" : "transparent"
-                onAction: root.win.main.abcqClose(win)
+                onAction: win.destroy()
                 Rectangle {
                     anchors.centerIn: parent
                     width: parent.height - 8; height: 2
@@ -151,7 +151,7 @@ MenuBar {
                     rotation: 45
                     antialiasing: true
                     transformOrigin: Item.Center
-                    color: parent.hovered ? Theme.iconIndicator : Theme.icon
+                    color: parent.hovered ? Theme.theme.iconIndicator : Theme.theme.icon
 
                     Rectangle {
                         anchors.centerIn: parent
@@ -167,7 +167,7 @@ MenuBar {
     }
 
     background: Rectangle {
-        color: Theme.surface2
+        color: Theme.theme.surface2
         // Make the empty space drag the specified root window.
         WindowDragHandler {
             dragWindow: root.win

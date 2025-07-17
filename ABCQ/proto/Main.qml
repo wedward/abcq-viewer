@@ -1,9 +1,11 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls.Basic
-import prototype
+import "."
+import Themes
 
 import QtCore
+
 
 // Welcome to Main! This is the entrypoint to the User Interface. Our root object is a ViewerWindow.
 // Highlander rules - only one Main window w/ special behaviors. There can be many child windows.
@@ -16,6 +18,34 @@ ViewerWindow {
     // backend property string appPath
     // backend property string backend // "py" or "cpp"
 
+    Settings {
+        property alias x: main.x
+        property alias y: main.y
+        property alias userScale: main.userScale
+        property alias intervalMS: main.intervalMS
+        property alias theme: main.theme
+    }
+
+
+    Connections {
+        target: build123d
+
+        function onReplOutput(output) {
+           console.log('[BUILD]: '+ output)
+        }
+
+        function onReplError(error) {
+            console.log("[BUILD] err: " + error)
+        }
+
+        function onReplClosed() {
+            console.log("[BUILD]: 'goodbye world!'")
+        }
+    }
+
+    property string theme: Theme.themeName
+
+
     property var childWindows: []
     property string requestOpen //backend
     property ApplicationWindow purgatory
@@ -24,7 +54,13 @@ ViewerWindow {
 
     // APP SETTINGS -- used across windows
     // property real pixelRatio:  Screen.devicePixelRatio
-    // property bool darkMode: Application.styleHints.colorScheme === Qt.ColorScheme.Dark
+    property bool darkmode: Application.styleHints.colorScheme === Qt.ColorScheme.Dark
+    onDarkmodeChanged: {
+        if (Theme.themeName === "Auto")
+            Theme.loadTheme("Auto")
+    }
+
+
     property int intervalMS: 50
     readonly property int defaultIntervalMS: 50
     function resetIntervalMS () {intervalMS = defaultIntervalMS}
@@ -47,18 +83,18 @@ ViewerWindow {
     property real heightL: 35.0 * effectiveScale
     property real heightM: 21.0 * effectiveScale
 
-    onClosing: (close) => {
+    // onClosing: (close) => {
 
-        if (childWindows.length > 0) {
-            close.accepted = false
-            main.show()
-            // exitDialog.open()
-            closeChildWindows()
-            close.accepted = true
-            main.close()
+    //     if (childWindows.length > 0) {
+    //         close.accepted = false
+    //         main.show()
+    //         // exitDialog.open()
+    //         closeChildWindows()
+    //         close.accepted = true
+    //         main.close()
 
-        }
-    }
+    //     }
+    // }
 
     Dialog {
         id: exitDialog
@@ -78,10 +114,18 @@ ViewerWindow {
 
     Component.onCompleted: {
         // SET DEFAULT LISTENER AT C:\Users\uSeRnAmE\output.glb
+
+        console.log(main.theme)
+
+        if (main.theme === null) Theme.loadTheme("Auto")
+        else Theme.loadTheme(main.theme)
         main.filePath = (StandardPaths.writableLocation(StandardPaths.HomeLocation)+"/output.glb").slice(8)
 
         console.log("Welcome to ABCQ!")
+
+        build123d.startRepl()
     }
+
 
     Label{
 
@@ -94,7 +138,7 @@ ViewerWindow {
 
         property string substring: backend === "cpp" ? appPath+"/prototype.bat" : "🐍🐍🐍🐍🐍"
         anchors.fill: parent
-        color: "green"
+        color: "red"
         z:10000
         text:  backend  + "\n" + appPath  + "\n" + substring
         horizontalAlignment: Text.AlignHCenter

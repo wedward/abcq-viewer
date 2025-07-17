@@ -6,7 +6,7 @@ import QtQuick.Layouts
 import QtQuick.Controls.Basic
 import Themes
 
-import prototype
+import "."
 pragma ComponentBehavior: Bound
 Rectangle {
     id: root
@@ -18,7 +18,7 @@ Rectangle {
     signal clicked()
     signal clickedAgain()
 
-    color: Theme.surface2
+    color: Theme.theme.surface2
 
     component SidebarEntry: Button {
         id: sidebarButton
@@ -26,7 +26,7 @@ Rectangle {
         Layout.alignment: Qt.AlignHCenter
         Layout.fillWidth: true
 
-        icon.color: down || checked ? Theme.iconIndicator : Theme.icon
+        icon.color: down || checked ? Theme.theme.iconIndicator : Theme.theme.icon
         icon.width: win.fontUIx * 2
         icon.height: win.fontUIx * 2
 
@@ -47,7 +47,7 @@ Rectangle {
         //     height: sidebarButton.icon.height * 1.2
 
         //     visible: sidebarButton.checked
-        //     color: Theme.color1
+        //     color: Theme.theme.color1
         // }
     }
 
@@ -95,7 +95,7 @@ Rectangle {
             // Shows help text when clicked.
             SidebarEntry {
                 id: infoTab
-                icon.source: "../icons/folder_open.svg"
+                icon.source: "icons/folder_open.svg"
                 checkable: true
                 checked: true
 
@@ -112,7 +112,22 @@ Rectangle {
             SidebarEntry {
                 id: filesystemTab
 
-                icon.source: "../icons/light_bulb.svg"
+                icon.source: "icons/light_bulb.svg"
+                checkable: true
+                onPressed: {
+                    if (checked) root.clickedAgain()
+                }
+
+
+                onCheckedChanged:  {
+                    if (checked) root.clicked()
+                }
+            }
+
+            SidebarEntry {
+                id: environmentTab
+
+                icon.source: "icons/light_bulb.svg"
                 checkable: true
                 onPressed: {
                     if (checked) root.clickedAgain()

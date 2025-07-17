@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic
-import prototype
+import "."
 
 
 import QtQuick3D
@@ -116,15 +116,24 @@ Item {
         }
     }
 
+    function setQuality(qual=0){
+        switch(qual){
+            case 0:
+
+
+            break;
+
+        }
+    }
+
 
     View3D{
-        // visible: false
-        property var live: layer.live
+        // property var live: layer.live
 
         id: v3d
         anchors.fill: parent
         camera: camOrtho
-        importScene: scene//scene.status === RuntimeLoader.Success ? scene : null
+        importScene: scene
         z: 200
         environment: ExtendedSceneEnvironment {
             id: env
@@ -218,7 +227,7 @@ Item {
 
 
         DirectionalLight {
-            visible: obj.ready
+            // visible: obj.ready
             id: dLight
             // ambientColor: Qt.rgba(0.5, 0.5, 0.5, 1.0)
             brightness: 9
@@ -237,7 +246,7 @@ Item {
 
         }
         DirectionalLight {
-            visible: obj.ready
+            // visible: obj.ready
             id: dLight2
             // ambientColor: Qt.rgba(0.5, 0.5, 0.5, 1.0)
             brightness: 1
@@ -256,15 +265,54 @@ Item {
 
         }
 
+        Model{
+            visible: !obj.ready
+            // scale: obj.scale
+            source: "#Cube"
+            materials: [
+                PrincipledMaterial {
+                    baseColor: "#41cd52"
+                    metalness: 0.0
+                    roughness: 0.1
+                    opacity: 1.0
+                }
+            ]
+
+            // onVisibleChanged: {
+            //     if (visible) {
+            //         scene.startAnim()
+            //     }
+            //     else {
+            //         scene.pauseAnim()
+            //     }
+            // }
+
+            rotation: obj.rotation
+
+            // Model{
+            //     source: "#Cone"
+            //     materials: [
+            //         PrincipledMaterial {
+            //             baseColor: "#41cd52"
+            //             metalness: 0.0
+            //             roughness: 0.4
+            //             opacity: 1.0
+            //         }
+            //     ]
+            //     x: 200
+
+            // }
+
+        }
+
+
+
+
         RuntimeLoader {
             id: obj
 
-
-
-            // enabled: filePath.length > 0
-
             property bool ready: status == RuntimeLoader.Success
-            visible: ready
+            visible: true
 
             onReadyChanged: if (ready) root.ready()
 
@@ -279,8 +327,6 @@ Item {
             source: root.filePath
             onBoundsChanged:{
 
-                // importScale = Math.min(viewer.width,viewer.height)*(1/bounds.maximum.length())*0.8
-                // longestDim = bounds.maximum.length() * importScale
 
                 maxL = bounds.maximum.length()
             }
@@ -426,6 +472,11 @@ Item {
         function startAnim(){
             animRunning = true
         }
+
+        function pauseAnim(){
+            animRunning = false
+        }
+
         function toggleAnim(){
             if (!animRunning) startAnim()
             else updateAnim()

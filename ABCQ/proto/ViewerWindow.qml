@@ -9,8 +9,10 @@ import QtQuick3D
 
 import RWatcher
 import FModel
-import prototype
+import "."
 import Themes
+
+
 // import CustomComponents  //renderWatcher
 
 pragma ComponentBehavior: Bound
@@ -80,7 +82,7 @@ ApplicationWindow {
 
         Timer{
 
-            interval: 2000
+            interval: 1000
             repeat: true
             running: root.resizing
 
@@ -249,15 +251,17 @@ ApplicationWindow {
 
             }
 
-            Action{
-                text: "<table width='100%'><tr>" +
-                      "<td align='left'>" + "Previous Window" + "</td>" +
-                      "<td align='right'>" + shortcut + "</td>" +
-                      "</tr></table>"
-                onTriggered: main.reopen()
-                enabled: main.purgatory !== null
-                shortcut: "Ctrl+Shift+N"
-            }
+            // fuction disabled by close windows bugfix
+
+            // Action{
+            //     text: "<table width='100%'><tr>" +
+            //           "<td align='left'>" + "Previous Window" + "</td>" +
+            //           "<td align='right'>" + shortcut + "</td>" +
+            //           "</tr></table>"
+            //     onTriggered: main.reopen()
+            //     enabled: main.purgatory !== null
+            //     shortcut: "Ctrl+Shift+N"
+            // }
 
 
             Action{
@@ -511,21 +515,63 @@ ApplicationWindow {
                 shortcut: "n"
             }
         }
+        // MyMenu {
+        //     fontUIx: root.fontUIx
+        //     title: backend ==="cpp" ? "Python" : "🐍 🐍 🐍"
+        //     Action {
+        //         property string substring: backend === "cpp" ?"Launch prototype.py" : "🐍 🐍 🐍 🐍 🐍"
+        //         // property bool cpp: typeof appPath !== "undefined"
+        //         text: "<table width='100%'><tr>" +
+        //               "<td align='center'>" + "🐍 "+ substring +" 🐍" + "</td>" +
+        //               "</tr></table>"
+        //         onTriggered: Qt.openUrlExternally(appPath+"/prototype.bat")
+        //         shortcut: "Ctrl+Shift+F3"
+
+        //         // check if running cpp/py
+        //         enabled: backend === "cpp"
+        //     }
+        // }
+
         MyMenu {
             fontUIx: root.fontUIx
-            title: "Python"
-            Action {
-                property string substring: backend === "cpp" ?"Launch prototype.py" : "🐍 🐍 🐍 🐍 🐍"
-                // property bool cpp: typeof appPath !== "undefined"
-                text: "<table width='100%'><tr>" +
-                      "<td align='center'>" + "🐍 "+ substring +" 🐍" + "</td>" +
-                      "</tr></table>"
-                
-                shortcut: "Ctrl+Shift+F3"
+            title: "Theme"
 
-                // check if running cpp/py
-                enabled: backend === "cpp"
-                onTriggered:  Qt.openUrlExternally(appPath+"/prototype.bat") 
+            Action{
+                property string substring: Theme.themeName === "Auto" ? "✅ " : ""
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Automatic" + "</td>" +
+                      "<td align='right'>" + substring + "</td>" +
+                      "</tr></table>"
+                onTriggered: Theme.loadTheme("Auto")
+
+            }
+            Action{
+                property string substring: Theme.themeName === "Light" ? "✅ " : ""
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Light" + "</td>" +
+                      "<td align='right'>" + substring + "</td>" +
+                      "</tr></table>"
+                onTriggered: Theme.loadTheme("Light")
+
+            }
+            Action{
+                property string substring: Theme.themeName === "Dark" ? "✅ " : ""
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Dark" + "</td>" +
+                      "<td align='right'>" + substring + "</td>" +
+                      "</tr></table>"
+                onTriggered: Theme.loadTheme("Dark")
+
+            }
+            Action{
+                property string substring: Theme.themeName === "Wedward" ? "✅ " : ""
+                text: "<table width='100%'><tr>" +
+                      "<td align='left'>" + "Wedward" + "</td>" +
+                      "<td align='right'>" + substring + "</td>" +
+                      "</tr></table>"
+                onTriggered: Theme.loadTheme("Wedward")
+
+
             }
         }
 
@@ -575,7 +621,7 @@ ApplicationWindow {
             }
             Rectangle {
 
-                color: Theme.surface1
+                color: Theme.theme.surface1
 
                 Layout.fillHeight: true
                 Layout.fillWidth: true
@@ -588,8 +634,25 @@ ApplicationWindow {
 
                     FileSystemView {
                         id: fileSystemView
-                        color: Theme.surface1
-                        onFileClicked: path => root.filePath = path
+                        color: Theme.theme.surface1
+                        onFileClicked: path =>
+
+                                        {
+                                           if (path.slice(-4)==='brep'){
+
+                                               console.log('BREP!!! ' + path)
+
+                                               build123d.sendCommand('BREP '+path)
+
+                                               root.filePath = 'C:/will/buildpy/output.glb'
+
+                                            }
+                                           else {
+                                                root.filePath = path
+                                           }
+
+                                       }
+
                         fontUIx: root.fontUIx
 
                         onRequestOpen: path => {
@@ -613,6 +676,12 @@ ApplicationWindow {
                         opacity: !drawerAjar ? 1 : (drawer.width-sidebar.width)/50
                     }
 
+                    Environment{
+                        color: "blue"
+                        SplitView.fillHeight: true
+                        SplitView.preferredWidth: 250
+                    }
+
 
                 }
             }
@@ -631,6 +700,7 @@ ApplicationWindow {
             layer.enabled: true
             layer.live: root.canUpdateScreen
             layer.smooth: true
+            layer.mipmap: true
 
 
         }

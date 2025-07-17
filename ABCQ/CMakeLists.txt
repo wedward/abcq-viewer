@@ -14,19 +14,19 @@ qt_standard_project_setup(REQUIRES 6.8)
 
 qt_add_executable(abcq
     main.cpp
-    icons/app_icon.svg icons/folder_closed.svg icons/folder_open.svg icons/generic_file.svg   icons/light_bulb.svg  icons/read.svg
+    # icons/app_icon.svg icons/folder_closed.svg icons/folder_open.svg icons/generic_file.svg   icons/light_bulb.svg  icons/read.svg
 )
 
 set_target_properties(abcq
     PROPERTIES
         WIN32_EXECUTABLE TRUE
-        MACOSX_BUNDLE TRUE
+        # MACOSX_BUNDLE TRUE
 )
 
-set_source_files_properties(qml/Colors.qml
-    PROPERTIES
-        QT_QML_SINGLETON_TYPE TRUE
-)
+# set_source_files_properties(qml/Colors.qml
+#     PROPERTIES
+#         QT_QML_SINGLETON_TYPE TRUE
+# )
 
 target_link_libraries(abcq
     PRIVATE
@@ -72,9 +72,6 @@ qt_add_qml_module(abcq
         renderwatcher.cpp
         replcontroller.cpp
         replcontroller.h
-RESOURCES qml/qmldir
-QML_FILES qml/Themes/Dark.qml qml/Themes/Light.qml qml/Themes/Wedward.qml qml/AnimWindow.qml qml/Colors.qml qml/ControlButton.qml qml/Controls.qml qml/Dark.qml qml/Environment.qml qml/FileSystemView.qml qml/Light.qml qml/Main.qml qml/MyMenu.qml qml/MyMenuBar.qml qml/ResizeButton.qml qml/Sidebar.qml qml/Viewer.qml qml/ViewerWindow.qml qml/Wedward.qml qml/WindowDragHandler.qml
-
 
 )
 target_compile_definitions(abcq PRIVATE QT_QML_DEBUG)
@@ -88,7 +85,7 @@ install(TARGETS abcq
 qt_generate_deploy_qml_app_script(
     TARGET abcq
     OUTPUT_SCRIPT deploy_script
-    MACOS_BUNDLE_POST_BUILD
+    # MACOS_BUNDLE_POST_BUILD
     NO_UNSUPPORTED_PLATFORM_ERROR
     DEPLOY_USER_QML_MODULES_ON_UNSUPPORTED_PLATFORM
 )

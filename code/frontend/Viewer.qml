@@ -33,6 +33,56 @@ Item {
 
     }
 
+    Label{
+        id: consoleText
+
+        // property bool: build123d.
+        anchors.top: parent.top
+        anchors.right: parent.right
+        anchors.margins: 5
+
+        color: "white"
+
+        font.pixelSize: 20
+
+        text: "Build123d is loading..."
+        z:v3d.z + 2
+
+        Connections {
+            target: build123d
+
+            function onReplOutput(output) {
+                if (output.includes("WELCOME")){
+                    consoleText.text = "READY!"
+                    fadeOutTimer.start()
+
+                }else{
+                    consoleText.text = ""
+                }
+            }
+        }
+
+        Timer {
+            id: fadeOutTimer
+            interval: 5 * 1000
+            repeat: false
+            onTriggered: {
+                fadeAnim.running = true
+            }
+        }
+
+
+        NumberAnimation {
+            id: fadeAnim
+            target: consoleText
+            property: "opacity"
+            to: 0
+            duration: 1 * 1000 
+        }
+
+
+    }
+
     MouseArea {
         id: ma
         hoverEnabled: true

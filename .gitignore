@@ -9,3 +9,4 @@ ABCQ/CMakeLists.txt.user
 *.user
 /.vscode
 *.glb
+/build

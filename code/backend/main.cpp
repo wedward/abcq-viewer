@@ -86,9 +86,9 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
 
-    QString backendStr = "cpp";
+
     engine.rootContext()->setContextProperty("appPath", appRootPath);
-    engine.rootContext()->setContextProperty("backend",backendStr);
+
     ReplController replController;
     engine.rootContext()->setContextProperty("build123d", &replController);
 
@@ -102,12 +102,14 @@ int main(int argc, char *argv[])
     if (protoName == "prod" || protoName.isEmpty() ) {
         mainQml = appRootPath + "/code/frontend/Main.qml";
         qDebug() << "LOADING PRODUCTION FRONTEND";
+        qDebug() << appRootPath;
     }    else {
         mainQml = appRootPath + "/code/proto/Main.qml";
         qDebug() << "LOADING PROTOTYPE FRONTEND";
     }
     engine.load(QUrl::fromLocalFile(mainQml));
 
+        engine.rootContext()->setContextProperty("frontend",mainQml);
 
     if (engine.rootObjects().isEmpty())
         return -1;
@@ -126,4 +128,7 @@ int main(int argc, char *argv[])
     }
 
     return QGuiApplication::exec(); // Start the event loop.
+
 }
+
+

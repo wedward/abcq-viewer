@@ -16,12 +16,13 @@ ViewerWindow {
     main: main
     // flags:  Qt.Window
     flags:  Qt.FramelessWindowHint | Qt.Window
-    // backend property string appPath
-    // backend property string backend // "py" or "cpp"
+    // backend property string appPath //
+    // backend property string backend //
+    // backend property obj build123d  //
 
     Settings {
-        property alias x: main.x
-        property alias y: main.y
+        // property alias x: main.x
+        // property alias y: main.y
         property alias userScale: main.userScale
         property alias intervalMS: main.intervalMS
         property alias theme: main.theme
@@ -84,46 +85,20 @@ ViewerWindow {
     property real heightL: 35.0 * effectiveScale
     property real heightM: 21.0 * effectiveScale
 
-    // onClosing: (close) => {
-
-    //     if (childWindows.length > 0) {
-    //         close.accepted = false
-    //         main.show()
-    //         // exitDialog.open()
-    //         closeChildWindows()
-    //         close.accepted = true
-    //         main.close()
-
-    //     }
-    // }
-
-    Dialog {
-        id: exitDialog
-        title: `Close x windows?`
-        standardButtons: Dialog.Ok | Dialog.Cancel
-
-        onAccepted: {
-            closeChildWindows()
-
-        }
-
-        onRejected: console.log("Cancel clicked")
-        modal: false
-    }
 
 
 
     Component.onCompleted: {
         // SET DEFAULT LISTENER AT C:\Users\uSeRnAmE\output.glb
 
-        console.log(main.theme)
+        // console.log(main.theme)
 
         if (main.theme === null) Theme.loadTheme("Auto")
         else Theme.loadTheme(main.theme)
         main.filePath = (StandardPaths.writableLocation(StandardPaths.HomeLocation)+"/output.glb").slice(8)
 
-        console.log("Welcome to ABCQ!")
-
+        console.log("FRONTEND LOADED")
+        console.log('LOADING BUILD123D')
         build123d.startRepl()
     }
 
@@ -137,13 +112,13 @@ ViewerWindow {
             onTriggered: showPath = !showPath
         }
 
-        property string substring: backend === "cpp" ? appPath+"/prototype.bat" : "🐍🐍🐍🐍🐍"
+
         anchors.fill: parent
         color: "green"
         z:10000
-        text:  backend  + "\n" + appPath  + "\n" + substring
+        text:  frontend  + "\n" + appPath  + "\n" 
         horizontalAlignment: Text.AlignHCenter
-        font.pixelSize: main.width/30
+        font.pixelSize:20
         visible: shortProto.showPath
     }
 
@@ -201,9 +176,6 @@ ViewerWindow {
             }
         }
 
-        // if (childWindows.length === 0) {
-        //     main.show()
-        // }
 
     }
 

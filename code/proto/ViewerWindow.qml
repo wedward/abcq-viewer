@@ -527,7 +527,7 @@ ApplicationWindow {
 
                                                console.log('BREP!!! ' + path)
                                                build123d.sendCommand('BREP '+path)
-                                               root.filePath = 'C:/Users/wehos/nuitest/output.glb'
+                                               root.filePath = appPath + "/output.glb"
 
                                             }
                                            else {

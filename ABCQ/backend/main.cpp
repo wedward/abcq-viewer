@@ -19,10 +19,17 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
     // qmlRegisterType<RenderWatcher>("CustomComponents", 1, 0, "RenderWatcher");
+
+    // SET CONTEXT
+    QString appRootPath = QCoreApplication::applicationDirPath().replace("\\", "/");
+
     qmlRegisterType<RenderWatcher>("RWatcher", 1, 0, "RenderWatcher");
     qmlRegisterType<FileSystemModel>("FModel", 1,0, "FileSystemModel");
-    qmlRegisterSingletonType(QUrl("file:///C:/will/abcdev/abcq-viewer/ABCQ/frontend/Colors.qml"),
-                             "Themes", 1, 0, "Theme");
+
+
+
+    QString colorPath = "file:///" + appRootPath + "/ABCQ/frontend/Colors.qml";
+    qmlRegisterSingletonType(QUrl(colorPath), "Themes", 1, 0, "Theme");
     QGuiApplication::setOrganizationName("ABCQ");
     QGuiApplication::setApplicationName("ABCQ Viewer");
     QGuiApplication::setApplicationVersion("0.1.1");
@@ -46,8 +53,7 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    // SET CONTEXT
-    QString appRootPath = QCoreApplication::applicationDirPath().replace("\\", "/");
+
     QString backendStr = "cpp";
     engine.rootContext()->setContextProperty("appPath", appRootPath);
     engine.rootContext()->setContextProperty("backend",backendStr);
@@ -59,7 +65,8 @@ int main(int argc, char *argv[])
     // engine.loadFromModule("ABCQ", "Main");
     // engine.addImportPath("C:/will/abcdev/abcq-viewer/ABCQ/qml");
 
-    QString mainQml = "C:/will/abcdev/abcq-viewer/ABCQ/frontend/Main.qml";
+    // QString mainQml = "C:/will/abcdev/abcq-viewer/ABCQ/frontend/Main.qml";
+    QString mainQml = appRootPath + "/ABCQ/frontend/Main.qml";
     engine.load(QUrl::fromLocalFile(mainQml));
 
 
@@ -67,12 +74,12 @@ int main(int argc, char *argv[])
         return -1;
 
 
-    if (!initialDir.isEmpty())
-    {
-        auto *fileSystemModel = engine.singletonInstance<FileSystemModel*>(
-            "ABCQ","FileSystemModel");
-        fileSystemModel->setInitialDirectory(initialDir);
-    }
+
+    FileSystemModel *fsModel = new FileSystemModel();
+    fsModel->setInitialDirectory(initialDir.isEmpty() ? QDir::homePath() : initialDir);
+
+    engine.rootContext()->setContextProperty("FileSystemModel", fsModel);
+
 
     if (args.length() == 1) {
         QObject *rootObject = engine.rootObjects().constFirst();

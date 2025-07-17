@@ -15,7 +15,10 @@ qt_standard_project_setup(REQUIRES 6.8)
 
 
 qt_add_executable(abcq
-    main.cpp
+    backend/main.cpp
+    backend/filesystemmodel.cpp
+    backend/replcontroller.cpp
+    backend/renderwatcher.cpp
 )
 
 set_target_properties(abcq
@@ -24,10 +27,10 @@ set_target_properties(abcq
         MACOSX_BUNDLE TRUE
 )
 
-set_source_files_properties(qml/Colors.qml
-    PROPERTIES
-        QT_QML_SINGLETON_TYPE TRUE
-)
+# set_source_files_properties(qml/Colors.qml
+#     PROPERTIES
+#         QT_QML_SINGLETON_TYPE TRUE
+# )
 
 target_include_directories(abcq PRIVATE backend)
 target_link_libraries(abcq
@@ -39,18 +42,7 @@ target_link_libraries(abcq
         Qt6::Svg
 )
 
-qt_add_qml_module(abcq
-    URI ABCQ
 
-    SOURCES
-        backend/filesystemmodel.cpp
-        backend/filesystemmodel.h
-        backend/renderwatcher.h
-        backend/renderwatcher.cpp
-        backend/replcontroller.cpp
-        backend/replcontroller.h
-
-)
 target_compile_definitions(abcq PRIVATE QT_QML_DEBUG)
 
 install(TARGETS abcq

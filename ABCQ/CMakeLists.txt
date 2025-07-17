@@ -14,7 +14,7 @@ qt_standard_project_setup(REQUIRES 6.8)
 
 qt_add_executable(abcq
     main.cpp
-    icons/app_icon.svg icons/folder_closed.svg icons/folder_open.svg icons/generic_file.svg   icons/light_bulb.svg  icons/read.svg
+    # icons/app_icon.svg icons/folder_closed.svg icons/folder_open.svg icons/generic_file.svg   icons/light_bulb.svg  icons/read.svg
 )
 
 set_target_properties(abcq
@@ -72,8 +72,8 @@ qt_add_qml_module(abcq
         renderwatcher.cpp
         replcontroller.cpp
         replcontroller.h
-RESOURCES qml/qmldir
-QML_FILES qml/Themes/Dark.qml qml/Themes/Light.qml qml/Themes/Wedward.qml qml/AnimWindow.qml qml/Colors.qml qml/ControlButton.qml qml/Controls.qml qml/Dark.qml qml/Environment.qml qml/FileSystemView.qml qml/Light.qml qml/Main.qml qml/MyMenu.qml qml/MyMenuBar.qml qml/ResizeButton.qml qml/Sidebar.qml qml/Viewer.qml qml/ViewerWindow.qml qml/Wedward.qml qml/WindowDragHandler.qml
+# RESOURCES qml/qmldir
+# QML_FILES qml/Themes/Dark.qml qml/Themes/Light.qml qml/Themes/Wedward.qml qml/AnimWindow.qml qml/Colors.qml qml/ControlButton.qml qml/Controls.qml qml/Dark.qml qml/Environment.qml qml/FileSystemView.qml qml/Light.qml qml/Main.qml qml/MyMenu.qml qml/MyMenuBar.qml qml/ResizeButton.qml qml/Sidebar.qml qml/Viewer.qml qml/ViewerWindow.qml qml/Wedward.qml qml/WindowDragHandler.qml
 
 
 )

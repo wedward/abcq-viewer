@@ -5,3 +5,5 @@ ABCQ/CMakeLists.txt.user
 /qml
 *.dll
 *.exe
+/code/build
+*.user

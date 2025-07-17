@@ -46,12 +46,12 @@ int main(int argc, char *argv[])
 
 
 
-    QString colorPath = "file:///" + appRootPath + "/ABCQ/frontend/Colors.qml";
+    QString colorPath = "file:///" + appRootPath + "/code/frontend/Colors.qml";
     qmlRegisterSingletonType(QUrl(colorPath), "Themes", 1, 0, "Theme");
     QGuiApplication::setOrganizationName("ABCQ");
     QGuiApplication::setApplicationName("ABCQ Viewer");
     QGuiApplication::setApplicationVersion("0.1.1");
-    QGuiApplication::setWindowIcon(QIcon("ABCQ/frontend/icons/app_icon.svg"));
+    QGuiApplication::setWindowIcon(QIcon("code/frontend/icons/app_icon.svg"));
 
     QCommandLineParser parser;
     parser.setApplicationDescription("A Build123d and CadQuery Viewer");
@@ -100,10 +100,10 @@ int main(int argc, char *argv[])
     // QString mainQml = "C:/will/abcdev/abcq-viewer/ABCQ/frontend/Main.qml";
     QString mainQml;
     if (protoName == "prod" || protoName.isEmpty() ) {
-        mainQml = appRootPath + "/ABCQ/frontend/Main.qml";
+        mainQml = appRootPath + "/code/frontend/Main.qml";
         qDebug() << "LOADING PRODUCTION FRONTEND";
     }    else {
-        mainQml = appRootPath + "/ABCQ/proto/Main.qml";
+        mainQml = appRootPath + "/code/proto/Main.qml";
         qDebug() << "LOADING PROTOTYPE FRONTEND";
     }
     engine.load(QUrl::fromLocalFile(mainQml));

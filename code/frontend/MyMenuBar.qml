@@ -116,7 +116,7 @@ MenuBar {
 
             InteractionButton {
                 id: minimize
-                // visible: !root.win.isMain
+                visible: root.win.isMain
                 onAction: root.win.showMinimized()
                 Rectangle {
                     anchors.centerIn: parent

@@ -36,6 +36,8 @@ Item {
     Label{
         id: consoleText
 
+        visible: root.win.isMain
+
         // property bool: build123d.
         anchors.top: parent.top
         anchors.right: parent.right

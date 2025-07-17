@@ -398,30 +398,16 @@ Rectangle{
             spacing: 5
             Layout.preferredHeight: heightM
 
-            StackLayout{
-                Layout.preferredHeight: heightM
+  
+
+            ControlButton{
+                text: "👻: " + Math.floor(win.opac*100) + " %"
+                fontSize: fontM
                 Layout.fillWidth: true
-                Layout.fillHeight: false
-
-                currentIndex: win.isMain ? 0 : 1
-
-                ControlButton{
-                    text: "New Window ↗️"
-                    fontSize: fontM
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: heightM
-                    onPressed: win.main.newWindow()
-                }
-
-                ControlButton{
-                    text: "👻: " + Math.floor(win.opac*100) + " %"
-                    fontSize: fontM
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: heightL
-                    onDragged: (dx,dy) => win.increaseOpac(dx/200)
-                    onDoubleClicked: win.resetOpac()
-                    cursor: Qt.SizeHorCursor
-                }
+                Layout.preferredHeight: heightM
+                onDragged: (dx,dy) => win.increaseOpac(dx/200)
+                onDoubleClicked: win.resetOpac()
+                cursor: Qt.SizeHorCursor
             }
 
             ControlButton{

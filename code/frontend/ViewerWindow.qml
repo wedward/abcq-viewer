@@ -34,7 +34,7 @@ ApplicationWindow {
     property string filePath
 
     property real opac: 1.0
-    property bool transparentBG: opac < 1 && !isMain
+    property bool transparentBG: opac < 1 // && !isMain
 
     property bool drawerShut: drawer.width === sidebar.width
     property bool drawerAjar: drawer.width - sidebar.width < 50
@@ -279,6 +279,14 @@ ApplicationWindow {
                 onTriggered: Qt.openUrlExternally(appPath+"/proto.bat")
                 shortcut: "F6"
             }
+
+            Action {
+                text: "Close Window"
+                onTriggered: root.destroy()
+                shortcut: "Ctrl+W"
+                enabled: !root.isMain
+            }
+
 
 
             Action {

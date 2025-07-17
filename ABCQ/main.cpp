@@ -21,12 +21,12 @@ int main(int argc, char *argv[])
     // qmlRegisterType<RenderWatcher>("CustomComponents", 1, 0, "RenderWatcher");
     qmlRegisterType<RenderWatcher>("RWatcher", 1, 0, "RenderWatcher");
     qmlRegisterType<FileSystemModel>("FModel", 1,0, "FileSystemModel");
-    qmlRegisterSingletonType(QUrl("file:///C:/will/abcdev/abcq-viewer/ABCQ/qml/Colors.qml"),
+    qmlRegisterSingletonType(QUrl("file:///C:/will/abcdev/abcq-viewer/ABCQ/frontend/Colors.qml"),
                              "Themes", 1, 0, "Theme");
     QGuiApplication::setOrganizationName("ABCQ");
     QGuiApplication::setApplicationName("ABCQ Viewer");
     QGuiApplication::setApplicationVersion("0.1.1");
-    QGuiApplication::setWindowIcon(QIcon("ABCQ/qml/icons/app_icon.svg"));
+    QGuiApplication::setWindowIcon(QIcon("ABCQ/frontend/icons/app_icon.svg"));
 
     QCommandLineParser parser;
     parser.setApplicationDescription("A Build123d and CadQuery Viewer");
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
     // engine.loadFromModule("ABCQ", "Main");
     // engine.addImportPath("C:/will/abcdev/abcq-viewer/ABCQ/qml");
 
-    QString mainQml = "C:/will/abcdev/abcq-viewer/ABCQ/qml/Main.qml";
+    QString mainQml = "C:/will/abcdev/abcq-viewer/ABCQ/frontend/Main.qml";
     engine.load(QUrl::fromLocalFile(mainQml));
 
 

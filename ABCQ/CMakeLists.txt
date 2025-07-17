@@ -12,9 +12,10 @@ endif ()
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Svg)
 qt_standard_project_setup(REQUIRES 6.8)
 
+
+
 qt_add_executable(abcq
     main.cpp
-    # icons/app_icon.svg icons/folder_closed.svg icons/folder_open.svg icons/generic_file.svg   icons/light_bulb.svg  icons/read.svg
 )
 
 set_target_properties(abcq
@@ -28,6 +29,7 @@ set_source_files_properties(qml/Colors.qml
         QT_QML_SINGLETON_TYPE TRUE
 )
 
+target_include_directories(abcq PRIVATE backend)
 target_link_libraries(abcq
     PRIVATE
         Qt6::Core
@@ -39,42 +41,14 @@ target_link_libraries(abcq
 
 qt_add_qml_module(abcq
     URI ABCQ
-#     RESOURCES
-#         "icons/folder_closed.svg"
-#         "icons/folder_open.svg"
-#         "icons/generic_file.svg"
-#         "icons/light_bulb.svg"
-#         "icons/read.svg"
-#         "icons/app_icon.svg"
-#     QML_FILES
-#         "qml/Main.qml"
-#         "qml/ViewerWindow.qml"
-#         "qml/Colors.qml"
-#         "qml/Viewer.qml"
-#         "qml/FileSystemView.qml"
-#         "qml/MyMenu.qml"
-#         "qml/MyMenuBar.qml"
-#         "qml/Sidebar.qml"
-#         "qml/ResizeButton.qml"
-#         "qml/WindowDragHandler.qml"
-#         "qml/Controls.qml"
-#         "qml/ControlButton.qml"
-#         "qml/Themes/Dark.qml"
-#         "qml/Themes/Light.qml"
-#         "qml/Themes/Wedward.qml"
-#         "qml/Environment.qml"
-
 
     SOURCES
-        filesystemmodel.cpp
-        filesystemmodel.h
-        renderwatcher.h
-        renderwatcher.cpp
-        replcontroller.cpp
-        replcontroller.h
-# RESOURCES qml/qmldir
-# QML_FILES qml/Themes/Dark.qml qml/Themes/Light.qml qml/Themes/Wedward.qml qml/AnimWindow.qml qml/Colors.qml qml/ControlButton.qml qml/Controls.qml qml/Dark.qml qml/Environment.qml qml/FileSystemView.qml qml/Light.qml qml/Main.qml qml/MyMenu.qml qml/MyMenuBar.qml qml/ResizeButton.qml qml/Sidebar.qml qml/Viewer.qml qml/ViewerWindow.qml qml/Wedward.qml qml/WindowDragHandler.qml
-
+        backend/filesystemmodel.cpp
+        backend/filesystemmodel.h
+        backend/renderwatcher.h
+        backend/renderwatcher.cpp
+        backend/replcontroller.cpp
+        backend/replcontroller.h
 
 )
 target_compile_definitions(abcq PRIVATE QT_QML_DEBUG)

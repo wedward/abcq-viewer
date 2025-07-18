@@ -126,18 +126,18 @@ MenuBar {
                 }
             }
 
-            // InteractionButton {
-            //     id: maximize
-            //     visible: !root.win.isMain
-            //     onAction: root.win.showMaximized()
-            //     Rectangle {
-            //         anchors.fill: parent
-            //         anchors.margins: 7
-            //         border.color: parent.hovered ? Theme.theme.iconIndicator : Theme.theme.icon
-            //         border.width: 2
-            //         color: "transparent"
-            //     }
-            // }
+            InteractionButton {
+                id: maximize
+                visible: root.win.isMain
+                onAction: root.win.toggleMaximized()
+                Rectangle {
+                    anchors.fill: parent
+                    anchors.margins: 7
+                    border.color: parent.hovered ? Theme.theme.iconIndicator : Theme.theme.icon
+                    border.width: 2
+                    color: "transparent"
+                }
+            }
 
             InteractionButton {
                 id: close

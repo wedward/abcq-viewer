@@ -36,6 +36,11 @@ ApplicationWindow {
     property real opac: 1.0
     property bool transparentBG: opac < 1 // && !isMain
 
+    function increaseOpac(amt=0.01, min=0, max=1){
+        opac = Math.min(max, Math.max(min, opac+amt))
+    }
+    function resetOpac() {opac=1.0}
+
     property bool drawerShut: drawer.width === sidebar.width
     property bool drawerAjar: drawer.width - sidebar.width < 50
 
@@ -45,10 +50,21 @@ ApplicationWindow {
 
     readonly property bool listening: filewatcher.listening
 
-    function increaseOpac(amt=0.01, min=0, max=1){
-        opac = Math.min(max, Math.max(min, opac+amt))
+    property bool awaitBrep: false
+
+    Connections {
+        target: build123d
+
+        function onReplOutput(output) {
+           if (awaitBrep){
+            if (output.includes('>')){
+                root.filePath = appPath+"/output.glb"
+                awaitBrep = false
+            }
+           }
+        }
     }
-    function resetOpac() {opac=1.0}
+
 
 
 
@@ -110,30 +126,44 @@ ApplicationWindow {
             running: false
             repeat: false
 
-            onTriggered: updateTimer.canUpdate = false
+            onTriggered: {
+                
+                if (root.resizing) {
+                
+                    updateTimer.canUpdate = false
+                }
+
+            }
         }
     }
 
     onTransparentBGChanged: {
 
         if (opac < 1 ){
-            root.flags = Qt.Window |  Qt.WA_TranslucentBackground |  Qt.FramelessWindowHint  | Qt.WindowStaysOnTopHint
+            root.flags = Qt.Window |  Qt.WA_TranslucentBackground |  Qt.FramelessWindowHint  
             console.log('ghost')
         }
         else {
-            root.flags = Qt.Window |  Qt.FramelessWindowHint  | Qt.WindowStaysOnTopHint
+            root.flags = Qt.Window |  Qt.FramelessWindowHint  |
             console.log('boo')
+        }
+
+        if (!root.isMain) {
+            root.flags = root.flags | Qt.WindowStaysOnTopHint
+            console.log('sticky')
         }
     }
 
 
     // TODO: create command line flag for screen
-    width: 640  // Screen.desktopAvailableWidth/2
+    width: 720  // Screen.desktopAvailableWidth/2
     height: 480  //Screen.desktopAvailableHeight/2
     visible: true
     title: "ABCQ Viewer"
+
+
     property bool viewMenus: true
-    property var childWindows: []
+    // property var childWindows: []
 
     minimumWidth: 200
     minimumHeight: 200
@@ -142,9 +172,16 @@ ApplicationWindow {
     // setting the color to transparent at runtime causes issues, so we create a solid bg w/ a rect
     color:  "transparent"
     background: Rectangle{
-        color: "black"
+        color: "gray"
         anchors.fill: parent
         visible: !transparentBG
+    }
+
+    property bool maxi: false
+    function toggleMaximized(){
+        root.maxi = !root.maxi
+        if (root.maxi) root.showMaximized()
+        else root.showNormal()
     }
 
     function toggleWatcher(){
@@ -166,7 +203,7 @@ ApplicationWindow {
         else closeDrawer()
     }
     function openDrawer() {
-        drawer.SplitView.preferredWidth = 220 + (heightUIx*2) + sidebar.width
+        drawer.SplitView.preferredWidth = root.width *0.4
     }
     function closeDrawer() {
         drawer.SplitView.preferredWidth = 0
@@ -508,7 +545,7 @@ ApplicationWindow {
                     toggleDrawer()
                 }
 
-                // onCurrentTabIndexChanged: Qt.callLater(openDrawer)
+  
 
 
             }
@@ -535,7 +572,9 @@ ApplicationWindow {
 
                                                console.log('BREP!!! ' + path)
                                                build123d.sendCommand('BREP '+path)
-                                               root.filePath = appPath + "/output.glb"
+                                               root.filePath = ""
+
+                                                root.awaitBrep = true
 
                                             }
                                            else {

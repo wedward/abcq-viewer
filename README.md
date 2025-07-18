@@ -1,7 +1,9 @@
 # ABCQ Viewer
 A Build123d and CadQuery Viewer
 
-![Screenshot 2025-06-18 193132](https://github.com/user-attachments/assets/9638ff2b-97c2-421b-8644-cc5739449e5f)
+
+![0 2 2](https://github.com/user-attachments/assets/672c3f8b-8099-48e2-8928-678cc3ade75a)
+
 <br><br>
 ## Features
 - Supports .GLTF, .STL, .OBJ, and .BREP (experimental) file formats. 
